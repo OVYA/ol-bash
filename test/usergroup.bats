@@ -20,6 +20,12 @@ load ../lib/bsfl
     [ "$status" -eq 0 ]
 }
 
+@test "is_user_exists() with current user" {
+    run is_user_exists $(whoami)
+    [ "$output" = "" ]
+    [ "$status" -eq 0 ]
+}
+
 @test "is_user_exists() with unknown user tv5sz7ne7vjip9z" {
     run is_user_exists tv5sz7ne7vjip9z
     [ "$output" = "" ]

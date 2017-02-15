@@ -30,6 +30,18 @@ declare -r BSFL_VERSION="0.1.0"
 ## Value: yes or no (y / n).
 declare DEBUG="no"
 
+## @var CONFIRM_DEFAULT_VAL
+## @brief The default value for the `confirm` function
+## @details When set to n or y the default falue when empty
+## response for the function `confirm` will be set to this value.
+## Other value does not allow empty response.
+## Value: y or n or x
+declare CONFIRM_DEFAULT_VAL="n"
+
+## @var CONFIRM_DEFAULT_MSG
+## @brief The default message for the `confirm` function
+declare CONFIRM_DEFAULT_MSG="Are you sure"
+
 ## @var LOGDATEFORMAT
 ## @brief Sets the log data format (syslog style).
 declare LOGDATEFORMAT="%FT%T%z"
@@ -148,6 +160,7 @@ set +o histexpand
 ## @defgroup message Message
 ## @defgroup misc Miscellaneous
 ## @defgroup network Network
+## @defgroup stdin Read data from stdin
 ## @defgroup stack Stack
 ## @defgroup string String
 ## @defgroup time Time
@@ -1286,4 +1299,72 @@ is_root() {
 is_user_exists() {
     getent passwd $1 > /dev/null 2&>1
     [ $? -eq 0 ] && return $TRUE || return $FALSE
+}
+
+# Group: Read from stdin
+# ----------------------------------------------------#
+
+## @fn confirm()
+## @ingroup stdin
+## @brief Ask from stdin for confirmation (y/n)
+## @details The value of the variable CONFIRM_DEFAULT_VAL controls the
+## default value when the user provides and empty answer.
+## @see CONFIRM_DEFAULT_VAL
+## The value of the variable CONFIRM_DEFAULT_MSG controls the
+## default message.
+## @see CONFIRM_DEFAULT_MSG
+## @param string Optional message to overwrite the value of CONFIRM_DEFAULT_MSG.
+## @retval 0 if the confirmation is y
+## @retval 1 in others cases.
+confirm() {
+    declare -l yesno
+    declare stryn
+    declare emptyReturn
+    declare allowempty
+
+
+    case "$CONFIRM_DEFAULT_VAL" in
+        [yY])
+            stryn='Y/n'
+            allowempty=true
+            emptyReturn=$TRUE
+
+            ;;
+
+        [nN])
+            stryn='y/N'
+            allowempty=true
+            emptyReturn=$FALSE
+            ;;
+
+        *)
+            stryn='y/n'
+            allowempty=false
+            ;;
+    esac
+
+    while [ "$yesno" != "y" -a "$yesno" != "n" ] ; do
+        $BOLD
+        echo -n "${1:-$CONFIRM_DEFAULT_MSG} ? "
+        ${DEFAULT_CLR}
+        echo -n "[${stryn}] "
+
+        read -r -p "" yesno
+
+        [ "$yesno" == "" ] && $allowempty && return $emptyReturn
+
+        case "$yesno" in
+            [yY])
+                return $TRUE
+                ;;
+
+            [nN])
+                return $FALSE
+                ;;
+
+            *)
+                msg_warning " => Please answer with n or y."
+                ;;
+        esac
+    done
 }

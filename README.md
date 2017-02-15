@@ -64,6 +64,7 @@ of these programs :
 * printf
 * sed
 * getent
+* read
 
 However, we try to get as much as possible a standalone
 library. Hence, some of these external dependencies will be removed in
