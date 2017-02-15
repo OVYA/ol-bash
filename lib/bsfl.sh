@@ -96,9 +96,9 @@ declare -r CYAN="tput setaf 6"
 ## @brief Internal color.
 declare -r BOLD="tput bold"
 
-## @var DEFAULT
+## @var DEFAULT_CLR
 ## @brief Internal color.
-declare -r DEFAULT="tput sgr0"
+declare -r DEFAULT_CLR="tput sgr0"
 
 ## @var RED_BG
 ## @brief Internal color.
@@ -124,6 +124,14 @@ declare -r MAGENTA_BG="tput setab 5"
 ## @brief Internal color.
 declare -r CYAN_BG="tput setab 6"
 
+## @var TRUE
+## @brief Exit code 0.
+declare -r TRUE=0
+
+## @var FALSE
+## @brief Exit code 1.
+declare -r FALSE=1
+
 # Configuration
 # --------------------------------------------------------------#
 
@@ -143,6 +151,7 @@ set +o histexpand
 ## @defgroup stack Stack
 ## @defgroup string String
 ## @defgroup time Time
+## @defgroup usergroup User & Group
 ## @defgroup variable Variable
 
 # Functions
@@ -477,14 +486,14 @@ msg() {
 
     if ! has_value COLOR
     then
-        COLOR="$DEFAULT"
+        COLOR="$DEFAULT_CLR"
     fi
 
     if has_value "MESSAGE"
     then
         $COLOR
         echo "$MESSAGE"
-        $DEFAULT
+        $DEFAULT_CLR
         if ! option_enabled "DONOTLOG"
         then
             log "$MESSAGE"
@@ -666,11 +675,11 @@ __raw_status() {
 
     position_cursor
     echo -n "["
-    $DEFAULT
+    $DEFAULT_CLR
     $BOLD
     $COLOR
     echo -n "$STATUS"
-    $DEFAULT
+    $DEFAULT_CLR
     echo "]"
 }
 
@@ -713,7 +722,7 @@ display_status() {
             ;;
         DEBUG )
             STATUS="  DEBUG  "
-            COLOR="$DEFAULT"
+            COLOR="$DEFAULT_CLR"
             ;;
         OK  )
             STATUS="   OK    "
@@ -1254,4 +1263,27 @@ cidr2mask() {
     done
 
     echo $mask
+}
+
+# Group: User & Group
+# ----------------------------------------------------#
+
+## @fn is_root()
+## @ingroup usergroup
+## @brief Tests if the script is executed by the root user
+## @retval 0 if the script is executed by the root user
+## @retval 1 in others cases.
+is_root() {
+    [ $EUID -eq 0 ] && return $TRUE || return $FALSE
+}
+
+## @fn is_user_exists()
+## @ingroup usergroup
+## @brief Tests if the USER exists
+## @param string USER to test.
+## @retval 0 if the USER exists
+## @retval 1 in others cases.
+is_user_exists() {
+    getent passwd $1 > /dev/null 2&>1
+    [ $? -eq 0 ] && return $TRUE || return $FALSE
 }
