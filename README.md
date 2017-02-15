@@ -39,6 +39,11 @@ Building the documentation is done by using [Doxygen][5] :
     cd <BSFL repository>/doc
     doxygen Doxyfile
 
+or
+
+    cd <BSFL repository>
+    make doc
+
 ## Dependencies
 
 BSFL is implemented for bash version 4. Prior versions of bash will fail at interpreting its code.
@@ -52,6 +57,7 @@ In addition, BSFL depends of some external programs. Here is the list of these p
 * grep
 * printf
 * sed
+* getent
 
 However, we try to get as much as possible a standalone library. Hence, some of these external dependencies will be removed in the future.
 
@@ -63,7 +69,12 @@ To run all the tests :
 
     bats <BSFL repository>/test
 
-Or, to run only the tests of a specific group :
+or
+
+    cd <BSFL repository>
+    make test
+
+To run only the tests of a specific group :
 
     bats <BSFL repository>/test/<test file>
 
