@@ -30,18 +30,6 @@ declare -r BSFL_VERSION="0.1.0"
 ## Value: yes or no (y / n).
 declare DEBUG="no"
 
-## @var CONFIRM_DEFAULT_VAL
-## @brief The default value for the `confirm` function
-## @details When set to n or y the default falue when empty
-## response for the function `confirm` will be set to this value.
-## Other value does not allow empty response.
-## Value: y or n or x
-declare CONFIRM_DEFAULT_VAL="n"
-
-## @var CONFIRM_DEFAULT_MSG
-## @brief The default message for the `confirm` function
-declare CONFIRM_DEFAULT_MSG="Are you sure"
-
 ## @var LOGDATEFORMAT
 ## @brief Sets the log data format (syslog style).
 declare LOGDATEFORMAT="%FT%T%z"
@@ -135,14 +123,6 @@ declare -r MAGENTA_BG="tput setab 5"
 ## @var CYAN_BG
 ## @brief Internal color.
 declare -r CYAN_BG="tput setab 6"
-
-## @var TRUE
-## @brief Exit code 0.
-declare -r TRUE=0
-
-## @var FALSE
-## @brief Exit code 1.
-declare -r FALSE=1
 
 # Configuration
 # --------------------------------------------------------------#
@@ -1287,7 +1267,7 @@ cidr2mask() {
 ## @retval 0 if the script is executed by the root user
 ## @retval 1 in others cases.
 is_root() {
-    [ $EUID -eq 0 ] && return $TRUE || return $FALSE
+    [ $EUID -eq 0 ] && return 0 || return 1
 }
 
 ## @fn is_user_exists()
@@ -1298,7 +1278,7 @@ is_root() {
 ## @retval 1 in others cases.
 is_user_exists() {
     getent passwd $1 > /dev/null 2&>1
-    [ $? -eq 0 ] && return $TRUE || return $FALSE
+    [ $? -eq 0 ] && return 0 || return 1
 }
 
 # Group: Read from stdin
@@ -1307,34 +1287,32 @@ is_user_exists() {
 ## @fn confirm()
 ## @ingroup stdin
 ## @brief Ask from stdin for confirmation (y/n)
-## @details The value of the variable CONFIRM_DEFAULT_VAL controls the
-## default value when the user provides and empty answer.
-## @see CONFIRM_DEFAULT_VAL
-## The value of the variable CONFIRM_DEFAULT_MSG controls the
-## default message.
-## @see CONFIRM_DEFAULT_MSG
-## @param string Optional message to overwrite the value of CONFIRM_DEFAULT_MSG.
+## @details The value of the variable param controls the default value when empty input.
+## @param string Optional default value when the user provides and
+## empty answer. Default is n, if set to y an empty value will be
+## interpreted as y. Other values disallow empty value input.
 ## @retval 0 if the confirmation is y
 ## @retval 1 in others cases.
 confirm() {
+    local yesno
     declare -l yesno
-    declare stryn
-    declare emptyReturn
-    declare allowempty
+    local stryn
+    local emptyReturn
+    local allowempty
 
 
-    case "$CONFIRM_DEFAULT_VAL" in
+    case "$1" in
         [yY])
             stryn='Y/n'
             allowempty=true
-            emptyReturn=$TRUE
+            emptyReturn=0
 
             ;;
 
         [nN])
             stryn='y/N'
             allowempty=true
-            emptyReturn=$FALSE
+            emptyReturn=1
             ;;
 
         *)
@@ -1344,25 +1322,25 @@ confirm() {
     esac
 
     while [ "$yesno" != "y" -a "$yesno" != "n" ] ; do
-        $BOLD
-        echo -n "${1:-$CONFIRM_DEFAULT_MSG} ? "
-        ${DEFAULT_CLR}
         echo -n "[${stryn}] "
 
         read -r -p "" yesno
 
         [ "$yesno" == "" ] && $allowempty && return $emptyReturn
 
-        case "$yesno" in
+        case "${yesno}" in
             [yY])
-                return $TRUE
+                true # Keep it for tabs test suite !
+                return 0
                 ;;
 
             [nN])
-                return $FALSE
+                false # Keep it for tabs test suite !
+                return 1
                 ;;
 
             *)
+                false # Keep it for tabs test suite !
                 msg_warning " => Please answer with n or y."
                 ;;
         esac
