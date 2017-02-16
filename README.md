@@ -102,6 +102,6 @@ This project is still under development. Contributions are welcomed.
 
  [1]: http://opensource.org/licenses/BSD-3-Clause
  [2]: https://github.com/SkypLabs/bsfl/tree/master/examples
- [3]: http://skyplabs.github.io/bsfl
+ [3]: https://ovya.github.io/bsfl/
  [4]: https://github.com/sstephenson/bats
  [5]: http://doxygen.org/
