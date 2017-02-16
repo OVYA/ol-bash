@@ -75,3 +75,12 @@ load ../lib/bsfl
     run confirm "N" <<< ""
     [ "$status" -eq 1 ]
 }
+
+@test "read_path()" {
+    run read_path "/usr/local" THEPATH <<< "/usr/local"
+    [ "$status" -eq 0 ]
+    [ "$output" = "" ]
+
+    read_path "/usr/local" THEPATH <<< "/usr/local"
+    [ "$THEPATH" = "/usr/local" ]
+}

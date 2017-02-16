@@ -1352,3 +1352,12 @@ confirm() {
         esac
     done
 }
+
+## @fn read_path()
+## @ingroup stdin
+## @brief Read from stdin for a path with a default value.
+## @param string Default value for the path.
+## @param string The variable to set with the asked path.
+read_path() {
+    read -e -p "" -i "$1" $2
+}
