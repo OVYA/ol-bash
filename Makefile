@@ -35,6 +35,6 @@ gh-pages-git-branch-create: gh-pages-git-branch-init
 		git merge origin/gh-pages
 	}
 
-.PHONY: doc
+.PHONY: gh-pages-git-branch-create
 gh-pages: gh-pages-git-branch-create
 	git subtree push --prefix doc/html origin gh-pages
