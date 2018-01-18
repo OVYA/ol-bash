@@ -16,7 +16,7 @@ test:
 
 .PHONY: gh-pages-git-branch-init
 gh-pages-git-branch-init: doc
-	@git ls-remote --heads origin | grep -q gh-pages && { \
+	@git ls-remote --heads origin | grep -q gh-pages || { \
 		git checkout --orphan gh-pages && \
 		git reset . && \
 		git clean --force -d --exclude doc && \
