@@ -163,7 +163,7 @@ set +o histexpand
 ## @retval 0 if the variable is defined.
 ## @retval 1 in others cases.
 defined() {
-    [[ ${!1-X} == ${!1-Y} ]]
+    [ ! -z ${!1+set} ]
 }
 
 ## @fn has_value()

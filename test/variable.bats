@@ -40,7 +40,7 @@ load ../lib/bsfl
 }
 
 @test "has_value() with an existing variable containing a value" {
-    var='test'
+    var='^[a-zA-Z]*-?[0-9]+$(a-g)'
 
     run has_value var
     [ "$status" -eq 0 ]
