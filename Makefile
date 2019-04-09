@@ -7,7 +7,7 @@ GH_PAGES_BRANG := "gh-pages"
 .PHONY: doc
 doc:
 	@cd $(DOC_DIR); \
-	doxygen Doxyfile && echo -e "\n => Doc generated in directory $(DOC_DIR){html/latex}\n" \
+	doxygen Doxyfile && echo -e "\n => Doc generated in directory $(DOC_DIR){html/latex}\n"
 
 .PHONY: test
 test:
