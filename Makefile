@@ -16,15 +16,15 @@ test:
 
 .PHONY: gh-pages-git-branch-init
 gh-pages-git-branch-init: doc
-	@git ls-remote --heads origin | grep -q gh-pages && || { \
-		git checkout --orphan gh-pages \
-		git reset . \
-		git clean --force -d --exclude doc \
-		mv doc/html/* . \
-		git clean --force -d doc \
-		git add . \
-		git commit -m "Generate Doc" \
-		git push -u origin gh-pages \
+	@git ls-remote --heads origin | grep -q gh-pages && { \
+		git checkout --orphan gh-pages; \
+		git reset .; \
+		git clean --force -d --exclude doc; \
+		mv doc/html/* .; \
+		git clean --force -d doc; \
+		git add .; \
+		git commit -m "Generate Doc"; \
+		git push -u origin gh-pages; \
 	}
 
 .PHONY: gh-pages-git-branch-create

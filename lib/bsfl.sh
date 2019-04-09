@@ -282,7 +282,7 @@ trim() {
 log2syslog() {
     if option_enabled  SYSLOG_ENABLED
     then
-        MESSAGE="$1"
+        local MESSAGE="$1"
         logger -t "$SYSLOG_TAG" " $MESSAGE" # The space is not a typo!
     fi
 }
@@ -295,9 +295,9 @@ log2syslog() {
 log() {
     if option_enabled LOG_ENABLED || option_enabled SYSLOG_ENABLED
     then
-        LOG_MESSAGE="$1"
-        STATE="$2"
-        DATE=`date +"$LOGDATEFORMAT"`
+        local LOG_MESSAGE="$1"
+        local STATE="$2"
+        local DATE=`date +"$LOGDATEFORMAT"`
 
         if has_value LOG_MESSAGE
         then
@@ -329,8 +329,8 @@ log() {
 log_status() {
     if option_enabled LOG_ENABLED
     then
-        MESSAGE="$1"
-        STATUS="$2"
+        local MESSAGE="$1"
+        local STATUS="$2"
 
         log "$MESSAGE" "$STATUS"
     fi
@@ -341,8 +341,8 @@ log_status() {
 ## @brief Logs a message with the 'emergency' status.
 ## @param message Message to be logged.
 log_emergency() {
-    MESSAGE="$1"
-    STATUS="EMERGENCY"
+    local MESSAGE="$1"
+    local STATUS="EMERGENCY"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -351,8 +351,8 @@ log_emergency() {
 ## @brief Logs a message with the 'alert' status.
 ## @param message Message to be logged.
 log_alert() {
-    MESSAGE="$1"
-    STATUS="ALERT"
+    local MESSAGE="$1"
+    local STATUS="ALERT"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -361,8 +361,8 @@ log_alert() {
 ## @brief Logs a message with the 'critical' status.
 ## @param message Message to be logged.
 log_critical() {
-    MESSAGE="$1"
-    STATUS="CRITICAL"
+    local MESSAGE="$1"
+    local STATUS="CRITICAL"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -371,8 +371,8 @@ log_critical() {
 ## @brief Logs a message with the 'error' status.
 ## @param message Message to be logged.
 log_error() {
-    MESSAGE="$1"
-    STATUS="ERROR"
+    local MESSAGE="$1"
+    local STATUS="ERROR"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -381,8 +381,8 @@ log_error() {
 ## @brief Logs a message with the 'warning' status.
 ## @param message Message to be logged.
 log_warning() {
-    MESSAGE="$1"
-    STATUS="WARNING"
+    local MESSAGE="$1"
+    local STATUS="WARNING"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -391,8 +391,8 @@ log_warning() {
 ## @brief Logs a message with the 'notice' status.
 ## @param message Message to be logged.
 log_notice() {
-    MESSAGE="$1"
-    STATUS="NOTICE"
+    local MESSAGE="$1"
+    local STATUS="NOTICE"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -401,8 +401,8 @@ log_notice() {
 ## @brief Logs a message with the 'info' status.
 ## @param message Message to be logged.
 log_info() {
-    MESSAGE="$1"
-    STATUS="INFO"
+    local MESSAGE="$1"
+    local STATUS="INFO"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -411,8 +411,8 @@ log_info() {
 ## @brief Logs a message with the 'debug' status.
 ## @param message Message to be logged.
 log_debug() {
-    MESSAGE="$1"
-    STATUS="DEBUG"
+    local MESSAGE="$1"
+    local STATUS="DEBUG"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -421,8 +421,8 @@ log_debug() {
 ## @brief Logs a message with the 'ok' status.
 ## @param message Message to be logged.
 log_ok() {
-    MESSAGE="$1"
-    STATUS="OK"
+    local MESSAGE="$1"
+    local STATUS="OK"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -431,8 +431,8 @@ log_ok() {
 ## @brief Logs a message with the 'not ok' status.
 ## @param message Message to be logged.
 log_not_ok() {
-    MESSAGE="$1"
-    STATUS="NOT_OK"
+    local MESSAGE="$1"
+    local STATUS="NOT_OK"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -441,8 +441,8 @@ log_not_ok() {
 ## @brief Logs a message with the 'failed' status.
 ## @param message Message to be logged.
 log_failed() {
-    MESSAGE="$1"
-    STATUS="FAILED"
+    local MESSAGE="$1"
+    local STATUS="FAILED"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -451,8 +451,8 @@ log_failed() {
 ## @brief Logs a message with the 'success' status.
 ## @param message Message to be logged.
 log_success() {
-    MESSAGE="$1"
-    STATUS="SUCCESS"
+    local MESSAGE="$1"
+    local STATUS="SUCCESS"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -461,8 +461,8 @@ log_success() {
 ## @brief Logs a message with the 'passed' status.
 ## @param message Message to be logged.
 log_passed() {
-    MESSAGE="$1"
-    STATUS="PASSED"
+    local MESSAGE="$1"
+    local STATUS="PASSED"
     log_status "$MESSAGE" "$STATUS"
 }
 
@@ -485,7 +485,7 @@ msg() {
         COLOR="$DEFAULT_CLR"
     fi
 
-    if has_value "MESSAGE"
+    if [[ ! -z "$MESSAGE" ]]
     then
         $COLOR
         echo "$MESSAGE"
@@ -509,8 +509,8 @@ msg() {
 ## @param message Message to display.
 ## @param status Message status.
 msg_status() {
-    MESSAGE="$1"
-    STATUS="$2"
+    local MESSAGE="$1"
+    local STATUS="$2"
 
     export DONOTLOG="yes"
     log_status "$MESSAGE" "$STATUS"
@@ -524,8 +524,8 @@ msg_status() {
 ## @brief Displays a message with the 'emergency' status.
 ## @param message Message to display.
 msg_emergency() {
-    MESSAGE="$1"
-    STATUS="EMERGENCY"
+    local MESSAGE="$1"
+    local STATUS="EMERGENCY"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -534,8 +534,8 @@ msg_emergency() {
 ## @brief Displays a message with the 'alert' status.
 ## @param message Message to display.
 msg_alert() {
-    MESSAGE="$1"
-    STATUS="ALERT"
+    local MESSAGE="$1"
+    local STATUS="ALERT"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -544,8 +544,8 @@ msg_alert() {
 ## @brief Displays a message with the 'critical' status.
 ## @param message Message to display.
 msg_critical() {
-    MESSAGE="$1"
-    STATUS="CRITICAL"
+    local MESSAGE="$1"
+    local STATUS="CRITICAL"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -554,8 +554,8 @@ msg_critical() {
 ## @brief Displays a message with the 'error' status.
 ## @param message Message to display.
 msg_error() {
-    MESSAGE="$1"
-    STATUS="ERROR"
+    local MESSAGE="$1"
+    local STATUS="ERROR"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -564,8 +564,8 @@ msg_error() {
 ## @brief Displays a message with the 'warning' status.
 ## @param message Message to display.
 msg_warning() {
-    MESSAGE="$1"
-    STATUS="WARNING"
+    local MESSAGE="$1"
+    local STATUS="WARNING"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -574,8 +574,8 @@ msg_warning() {
 ## @brief Displays a message with the 'notice' status.
 ## @param message Message to display.
 msg_notice() {
-    MESSAGE="$1"
-    STATUS="NOTICE"
+    local MESSAGE="$1"
+    local STATUS="NOTICE"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -584,8 +584,8 @@ msg_notice() {
 ## @brief Displays a message with the 'info' status.
 ## @param message Message to display.
 msg_info() {
-    MESSAGE="$1"
-    STATUS="INFO"
+    local MESSAGE="$1"
+    local STATUS="INFO"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -594,8 +594,8 @@ msg_info() {
 ## @brief Displays a message with the 'debug' status.
 ## @param message Message to display.
 msg_debug() {
-    MESSAGE="$1"
-    STATUS="DEBUG"
+    local MESSAGE="$1"
+    local STATUS="DEBUG"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -604,8 +604,8 @@ msg_debug() {
 ## @brief Displays a message with the 'ok' status.
 ## @param message Message to display.
 msg_ok() {
-    MESSAGE="$1"
-    STATUS="OK"
+    local MESSAGE="$1"
+    local STATUS="OK"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -614,8 +614,8 @@ msg_ok() {
 ## @brief Displays a message with the 'not ok' status.
 ## @param message Message to display.
 msg_not_ok() {
-    MESSAGE="$1"
-    STATUS="NOT_OK"
+    local MESSAGE="$1"
+    local STATUS="NOT_OK"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -624,8 +624,8 @@ msg_not_ok() {
 ## @brief Displays a message with the 'failed' status.
 ## @param message Message to display.
 msg_failed() {
-    MESSAGE="$1"
-    STATUS="FAILED"
+    local MESSAGE="$1"
+    local STATUS="FAILED"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -634,8 +634,8 @@ msg_failed() {
 ## @brief Displays a message with the 'success' status.
 ## @param message Message to display.
 msg_success() {
-    MESSAGE="$1"
-    STATUS="SUCCESS"
+    local MESSAGE="$1"
+    local STATUS="SUCCESS"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -644,8 +644,8 @@ msg_success() {
 ## @brief Displays a message with the 'passed' status.
 ## @param message Message to display.
 msg_passed() {
-    MESSAGE="$1"
-    STATUS="PASSED"
+    local MESSAGE="$1"
+    local STATUS="PASSED"
     msg_status "$MESSAGE" "$STATUS"
 }
 
@@ -660,7 +660,7 @@ msg_passed() {
 ## @param status Message status.
 ## @param color Message color.
 __raw_status() {
-    STATUS="$1"
+    local STATUS="$1"
     COLOR="$2"
 
     position_cursor () {
@@ -685,7 +685,7 @@ __raw_status() {
 ## side of the screen.
 ## @param status Message status to display.
 display_status() {
-    STATUS="$1"
+    local STATUS="$1"
 
     case $STATUS in
         EMERGENCY )
@@ -756,27 +756,49 @@ display_status() {
 ## @brief Executes a command and displays its status ('OK' or 'FAILED').
 ## @param command Command to execute.
 cmd() {
-    COMMAND="$1"
-    msg "Executing: $COMMAND"
+    local -r COMMAND="$1"
+    msg "Executing: ${COMMAND}"
 
     RESULT=$(eval $COMMAND 2>&1)
     ERROR="$?"
 
-    MSG="Command: ${COMMAND:0:29}..."
+    local MSG="Command: ${COMMAND}"
 
     tput cuu1
 
     if [ "$ERROR" == "0" ]
     then
         msg_ok "$MSG"
-        if option_enabled DEBUG
-        then
-            msg "$RESULT"
-        fi
     else
         msg_failed "$MSG"
-        log "$RESULT"
+        has_value RESULT && log "$RESULT"
     fi
+
+    if option_enabled DEBUG
+    then
+        has_value RESULT && msg "$RESULT"
+    fi
+
+    return "$ERROR"
+}
+
+## @fn cmd_or_die()
+## @ingroup command
+## @brief Executes a command and displays its status ('OK' or 'FAILED').
+## Combine the functions `cmd` and `die_if_false` to die on error.
+## @param command Command to execute.
+cmd_or_die() {
+    COMMAND="$1"
+    cmd "$COMMAND"
+    ERROR="$?"
+    MSG="Set LOG_ENABLED=y to log the errors on a file or DEBUG=y"
+
+    if option_enabled LOG_ENABLED
+    then
+        MSG="Error are logged in the file $LOG_FILE"
+    fi
+
+    die_if_false "$ERROR" "Last Command failed. ${MSG}." "$(caller 0)"
 
     return "$ERROR"
 }
@@ -841,14 +863,15 @@ stop_watch() {
 ## is also logged.
 ## @param errcode Error code.
 ## @param errmsg Error message.
+## @param string (optional) Line caller info.
 die() {
     local -r err_code="$1"
     local -r err_msg="$2"
     local -r err_caller="${3:-$(caller 0)}"
 
-    msg_failed "ERROR: $err_msg"
-    msg_failed "ERROR: At line $err_caller"
-    msg_failed "ERROR: Error code = $err_code"
+    msg "ERROR: $err_msg"
+    msg "ERROR: At line $err_caller"
+    msg "ERROR: Error code = $err_code"
     exit "$err_code"
 } >&2 # function writes to stderr
 
@@ -858,10 +881,11 @@ die() {
 ## command has failed (if its error code is not '0').
 ## @param errcode Error code.
 ## @param errmsg Error message.
+## @param string (optional) Line caller info.
 die_if_false() {
     local -r err_code=$1
     local -r err_msg=$2
-    local -r err_caller=$(caller 0)
+    local -r err_caller=${3:-$(caller 0)}
 
     if [[ "$err_code" != "0" ]]
     then
@@ -885,6 +909,20 @@ die_if_true() {
         die $err_code "$err_msg" "$err_caller"
     fi
 } >&2 # function writes to stderr
+
+## @fn is_interactive()
+## @ingroup misc
+## @brief Exit with
+is_interactive() {
+    case $- in
+        *i*)    # interactive shell
+            return 0
+            ;;
+        *)      # non-interactive shell
+            return 1
+            ;;
+    esac
+}
 
 # Group: Array
 # ----------------------------------------------------#
