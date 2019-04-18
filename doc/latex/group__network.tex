@@ -1,0 +1,243 @@
+\hypertarget{group__network}{}\section{Network}
+\label{group__network}\index{Network@{Network}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__network_ga29eb87466a05fafa3923b9eebd5448fe}{cidr2mask} (netmask)
+\begin{DoxyCompactList}\small\item\em Converts C\+I\+DR notation into I\+Pv4 decimal netmask. \end{DoxyCompactList}\item 
+\hyperlink{group__network_gaa7e1a6c8a8ae517d7ae3b649dbc975c3}{get\+\_\+ipv4\+\_\+broadcast} (address, netmask)
+\begin{DoxyCompactList}\small\item\em Computes the broadcast address of an I\+Pv4 subnet. \end{DoxyCompactList}\item 
+\hyperlink{group__network_ga245d578ab59cdd517ba14695a186aeb9}{get\+\_\+ipv4\+\_\+network} (address, netmask)
+\begin{DoxyCompactList}\small\item\em Computes the network address of an I\+Pv4 subnet. \end{DoxyCompactList}\item 
+\hyperlink{group__network_ga6e20cc89dd0c8bbc15076e5e5bd694d6}{is\+\_\+fqdn} (fqdn)
+\begin{DoxyCompactList}\small\item\em Tests a F\+Q\+DN. \end{DoxyCompactList}\item 
+\hyperlink{group__network_ga807cd53aced8db0cdab6c03b1d80efef}{is\+\_\+ipv4} (address)
+\begin{DoxyCompactList}\small\item\em Tests an I\+Pv4 address. \end{DoxyCompactList}\item 
+\hyperlink{group__network_ga797eb7c1580e19ec5b08ceb5ef7a4ff3}{is\+\_\+ipv4\+\_\+cidr} (netmask)
+\begin{DoxyCompactList}\small\item\em Tests an I\+Pv4 C\+I\+DR netmask. \end{DoxyCompactList}\item 
+\hyperlink{group__network_ga285bf1c0fa821c715d3dcfb730fb6c25}{is\+\_\+ipv4\+\_\+netmask} (netmask)
+\begin{DoxyCompactList}\small\item\em Tests if an I\+Pv4 decimal netmask is valid. \end{DoxyCompactList}\item 
+\hyperlink{group__network_gaf6be413099165a8bb76734dc07a874e7}{is\+\_\+ipv4\+\_\+subnet} (subnet)
+\begin{DoxyCompactList}\small\item\em Tests an I\+Pv4 subnet. \end{DoxyCompactList}\item 
+\hyperlink{group__network_ga807b7f569c898e32f4ce207a8209a584}{mask2cidr} (netmask)
+\begin{DoxyCompactList}\small\item\em Converts I\+Pv4 decimal netmask notation into C\+I\+DR. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__network_ga29eb87466a05fafa3923b9eebd5448fe}\label{group__network_ga29eb87466a05fafa3923b9eebd5448fe}} 
+\index{Network@{Network}!cidr2mask@{cidr2mask}}
+\index{cidr2mask@{cidr2mask}!Network@{Network}}
+\subsubsection{\texorpdfstring{cidr2mask()}{cidr2mask()}}
+{\footnotesize\ttfamily cidr2mask (\begin{DoxyParamCaption}\item[{netmask}]{ }\end{DoxyParamCaption})}
+
+
+
+Converts C\+I\+DR notation into I\+Pv4 decimal netmask. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em netmask} & C\+I\+DR to convert. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the input parameters are valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyReturn}{Returns}
+Decimal notation of the given C\+I\+DR. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__network_gaa7e1a6c8a8ae517d7ae3b649dbc975c3}\label{group__network_gaa7e1a6c8a8ae517d7ae3b649dbc975c3}} 
+\index{Network@{Network}!get\+\_\+ipv4\+\_\+broadcast@{get\+\_\+ipv4\+\_\+broadcast}}
+\index{get\+\_\+ipv4\+\_\+broadcast@{get\+\_\+ipv4\+\_\+broadcast}!Network@{Network}}
+\subsubsection{\texorpdfstring{get\+\_\+ipv4\+\_\+broadcast()}{get\_ipv4\_broadcast()}}
+{\footnotesize\ttfamily get\+\_\+ipv4\+\_\+broadcast (\begin{DoxyParamCaption}\item[{address}]{,  }\item[{netmask}]{ }\end{DoxyParamCaption})}
+
+
+
+Computes the broadcast address of an I\+Pv4 subnet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & I\+Pv4 address. \\
+\hline
+{\em netmask} & I\+Pv4 netmask. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the input parameters are valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyReturn}{Returns}
+Broadcast address. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__network_ga245d578ab59cdd517ba14695a186aeb9}\label{group__network_ga245d578ab59cdd517ba14695a186aeb9}} 
+\index{Network@{Network}!get\+\_\+ipv4\+\_\+network@{get\+\_\+ipv4\+\_\+network}}
+\index{get\+\_\+ipv4\+\_\+network@{get\+\_\+ipv4\+\_\+network}!Network@{Network}}
+\subsubsection{\texorpdfstring{get\+\_\+ipv4\+\_\+network()}{get\_ipv4\_network()}}
+{\footnotesize\ttfamily get\+\_\+ipv4\+\_\+network (\begin{DoxyParamCaption}\item[{address}]{,  }\item[{netmask}]{ }\end{DoxyParamCaption})}
+
+
+
+Computes the network address of an I\+Pv4 subnet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & I\+Pv4 address. \\
+\hline
+{\em netmask} & I\+Pv4 netmask. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the input parameters are valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyReturn}{Returns}
+Network address. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__network_ga6e20cc89dd0c8bbc15076e5e5bd694d6}\label{group__network_ga6e20cc89dd0c8bbc15076e5e5bd694d6}} 
+\index{Network@{Network}!is\+\_\+fqdn@{is\+\_\+fqdn}}
+\index{is\+\_\+fqdn@{is\+\_\+fqdn}!Network@{Network}}
+\subsubsection{\texorpdfstring{is\+\_\+fqdn()}{is\_fqdn()}}
+{\footnotesize\ttfamily is\+\_\+fqdn (\begin{DoxyParamCaption}\item[{fqdn}]{ }\end{DoxyParamCaption})}
+
+
+
+Tests a F\+Q\+DN. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fqdn} & F\+Q\+DN to test. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the F\+Q\+DN is valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group__network_ga807cd53aced8db0cdab6c03b1d80efef}\label{group__network_ga807cd53aced8db0cdab6c03b1d80efef}} 
+\index{Network@{Network}!is\+\_\+ipv4@{is\+\_\+ipv4}}
+\index{is\+\_\+ipv4@{is\+\_\+ipv4}!Network@{Network}}
+\subsubsection{\texorpdfstring{is\+\_\+ipv4()}{is\_ipv4()}}
+{\footnotesize\ttfamily is\+\_\+ipv4 (\begin{DoxyParamCaption}\item[{address}]{ }\end{DoxyParamCaption})}
+
+
+
+Tests an I\+Pv4 address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & Address to test. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the address is an I\+Pv4. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group__network_ga797eb7c1580e19ec5b08ceb5ef7a4ff3}\label{group__network_ga797eb7c1580e19ec5b08ceb5ef7a4ff3}} 
+\index{Network@{Network}!is\+\_\+ipv4\+\_\+cidr@{is\+\_\+ipv4\+\_\+cidr}}
+\index{is\+\_\+ipv4\+\_\+cidr@{is\+\_\+ipv4\+\_\+cidr}!Network@{Network}}
+\subsubsection{\texorpdfstring{is\+\_\+ipv4\+\_\+cidr()}{is\_ipv4\_cidr()}}
+{\footnotesize\ttfamily is\+\_\+ipv4\+\_\+cidr (\begin{DoxyParamCaption}\item[{netmask}]{ }\end{DoxyParamCaption})}
+
+
+
+Tests an I\+Pv4 C\+I\+DR netmask. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em netmask} & C\+I\+DR netmask to test. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the I\+Pv4 C\+I\+DR netmask is valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group__network_ga285bf1c0fa821c715d3dcfb730fb6c25}\label{group__network_ga285bf1c0fa821c715d3dcfb730fb6c25}} 
+\index{Network@{Network}!is\+\_\+ipv4\+\_\+netmask@{is\+\_\+ipv4\+\_\+netmask}}
+\index{is\+\_\+ipv4\+\_\+netmask@{is\+\_\+ipv4\+\_\+netmask}!Network@{Network}}
+\subsubsection{\texorpdfstring{is\+\_\+ipv4\+\_\+netmask()}{is\_ipv4\_netmask()}}
+{\footnotesize\ttfamily is\+\_\+ipv4\+\_\+netmask (\begin{DoxyParamCaption}\item[{netmask}]{ }\end{DoxyParamCaption})}
+
+
+
+Tests if an I\+Pv4 decimal netmask is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em netmask} & I\+Pv4 decimal netmask to test. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the I\+Pv4 decimal netmask is valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group__network_gaf6be413099165a8bb76734dc07a874e7}\label{group__network_gaf6be413099165a8bb76734dc07a874e7}} 
+\index{Network@{Network}!is\+\_\+ipv4\+\_\+subnet@{is\+\_\+ipv4\+\_\+subnet}}
+\index{is\+\_\+ipv4\+\_\+subnet@{is\+\_\+ipv4\+\_\+subnet}!Network@{Network}}
+\subsubsection{\texorpdfstring{is\+\_\+ipv4\+\_\+subnet()}{is\_ipv4\_subnet()}}
+{\footnotesize\ttfamily is\+\_\+ipv4\+\_\+subnet (\begin{DoxyParamCaption}\item[{subnet}]{ }\end{DoxyParamCaption})}
+
+
+
+Tests an I\+Pv4 subnet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em subnet} & Subnet to test with /\+C\+I\+DR. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the I\+Pv4 subnet is valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group__network_ga807b7f569c898e32f4ce207a8209a584}\label{group__network_ga807b7f569c898e32f4ce207a8209a584}} 
+\index{Network@{Network}!mask2cidr@{mask2cidr}}
+\index{mask2cidr@{mask2cidr}!Network@{Network}}
+\subsubsection{\texorpdfstring{mask2cidr()}{mask2cidr()}}
+{\footnotesize\ttfamily mask2cidr (\begin{DoxyParamCaption}\item[{netmask}]{ }\end{DoxyParamCaption})}
+
+
+
+Converts I\+Pv4 decimal netmask notation into C\+I\+DR. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em netmask} & Decimal netmask to convert. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the input parameters are valid. \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyReturn}{Returns}
+C\+I\+DR notation of the given decimal netmask. 
+\end{DoxyReturn}

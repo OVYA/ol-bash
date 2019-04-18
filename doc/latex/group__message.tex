@@ -1,0 +1,306 @@
+\hypertarget{group__message}{}\section{Message}
+\label{group__message}\index{Message@{Message}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__message_gab8cefae01bd7be88bdefd3f719682cc2}{\+\_\+\+\_\+raw\+\_\+status} (status, color)
+\begin{DoxyCompactList}\small\item\em Internal use. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga96f4577ff4b52262f9a0caa7385a354b}{display\+\_\+status} (status)
+\begin{DoxyCompactList}\small\item\em Displays the specified message status on the right side of the screen. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga0a802cfb26922315f8503676672fcea9}{msg} (message, color)
+\begin{DoxyCompactList}\small\item\em Similar to the \textquotesingle{}echo\textquotesingle{} function but with extra features. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga0b542f8978d859a6f0bd30de6791df41}{msg\+\_\+alert} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}alert\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga4f7002e0dcd96055ba404a5dd0ad34b1}{msg\+\_\+critical} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}critical\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga6a2070c37510d23ac294b0c007dde078}{msg\+\_\+debug} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}debug\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga3b4d3c652e7fdb3189a738a6cb1a99fd}{msg\+\_\+emergency} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}emergency\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga8fead3d7c844b6cfed0ca5ef0d930565}{msg\+\_\+error} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}error\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga1051f1ddca193760016f3021e885dfbb}{msg\+\_\+failed} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}failed\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_gad043c4df79f7cc2143ab6d3a67ea20da}{msg\+\_\+info} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}info\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_gadba552b40430d43c306129dccb9bb6ba}{msg\+\_\+not\+\_\+ok} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}not ok\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga61150f29d9ff1be264ec6d95a7b10161}{msg\+\_\+notice} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}notice\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga9f9b130e50d82e4ef3bf3554df755078}{msg\+\_\+ok} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}ok\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga9df650b1c1239ff41a66696efa81efcd}{msg\+\_\+passed} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}passed\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_gad80ab7ec02b8c2f8a2c53ff732a07db2}{msg\+\_\+status} (message, status)
+\begin{DoxyCompactList}\small\item\em Displays a message with its status at the end of the line. \end{DoxyCompactList}\item 
+\hyperlink{group__message_ga34a1aa638a3fb510d440f5de95a903dc}{msg\+\_\+success} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}success\textquotesingle{} status. \end{DoxyCompactList}\item 
+\hyperlink{group__message_gae7ed668c9e2b1cf86059082cc6e28024}{msg\+\_\+warning} (message)
+\begin{DoxyCompactList}\small\item\em Displays a message with the \textquotesingle{}warning\textquotesingle{} status. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__message_gab8cefae01bd7be88bdefd3f719682cc2}\label{group__message_gab8cefae01bd7be88bdefd3f719682cc2}} 
+\index{Message@{Message}!\+\_\+\+\_\+raw\+\_\+status@{\+\_\+\+\_\+raw\+\_\+status}}
+\index{\+\_\+\+\_\+raw\+\_\+status@{\+\_\+\+\_\+raw\+\_\+status}!Message@{Message}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+raw\+\_\+status()}{\_\_raw\_status()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+raw\+\_\+status (\begin{DoxyParamCaption}\item[{status}]{,  }\item[{color}]{ }\end{DoxyParamCaption})}
+
+
+
+Internal use. 
+
+This function just positions the cursor one row up and to the right. It then prints the message to display with the specified color. It is used for displaying colored status messages on the right side of the screen. 
+\begin{DoxyParams}{Parameters}
+{\em status} & Message status. \\
+\hline
+{\em color} & Message color. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga96f4577ff4b52262f9a0caa7385a354b}\label{group__message_ga96f4577ff4b52262f9a0caa7385a354b}} 
+\index{Message@{Message}!display\+\_\+status@{display\+\_\+status}}
+\index{display\+\_\+status@{display\+\_\+status}!Message@{Message}}
+\subsubsection{\texorpdfstring{display\+\_\+status()}{display\_status()}}
+{\footnotesize\ttfamily display\+\_\+status (\begin{DoxyParamCaption}\item[{status}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays the specified message status on the right side of the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & Message status to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga0a802cfb26922315f8503676672fcea9}\label{group__message_ga0a802cfb26922315f8503676672fcea9}} 
+\index{Message@{Message}!msg@{msg}}
+\index{msg@{msg}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg()}{msg()}}
+{\footnotesize\ttfamily msg (\begin{DoxyParamCaption}\item[{message}]{,  }\item[{color}]{ }\end{DoxyParamCaption})}
+
+
+
+Similar to the \textquotesingle{}echo\textquotesingle{} function but with extra features. 
+
+This function basically replaces the \textquotesingle{}echo\textquotesingle{} function in bash scripts. The added functionalities over \textquotesingle{}echo\textquotesingle{} are logging and using colors. 
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+{\em color} & Text color. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga0b542f8978d859a6f0bd30de6791df41}\label{group__message_ga0b542f8978d859a6f0bd30de6791df41}} 
+\index{Message@{Message}!msg\+\_\+alert@{msg\+\_\+alert}}
+\index{msg\+\_\+alert@{msg\+\_\+alert}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+alert()}{msg\_alert()}}
+{\footnotesize\ttfamily msg\+\_\+alert (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}alert\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga4f7002e0dcd96055ba404a5dd0ad34b1}\label{group__message_ga4f7002e0dcd96055ba404a5dd0ad34b1}} 
+\index{Message@{Message}!msg\+\_\+critical@{msg\+\_\+critical}}
+\index{msg\+\_\+critical@{msg\+\_\+critical}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+critical()}{msg\_critical()}}
+{\footnotesize\ttfamily msg\+\_\+critical (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}critical\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga6a2070c37510d23ac294b0c007dde078}\label{group__message_ga6a2070c37510d23ac294b0c007dde078}} 
+\index{Message@{Message}!msg\+\_\+debug@{msg\+\_\+debug}}
+\index{msg\+\_\+debug@{msg\+\_\+debug}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+debug()}{msg\_debug()}}
+{\footnotesize\ttfamily msg\+\_\+debug (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}debug\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga3b4d3c652e7fdb3189a738a6cb1a99fd}\label{group__message_ga3b4d3c652e7fdb3189a738a6cb1a99fd}} 
+\index{Message@{Message}!msg\+\_\+emergency@{msg\+\_\+emergency}}
+\index{msg\+\_\+emergency@{msg\+\_\+emergency}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+emergency()}{msg\_emergency()}}
+{\footnotesize\ttfamily msg\+\_\+emergency (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}emergency\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga8fead3d7c844b6cfed0ca5ef0d930565}\label{group__message_ga8fead3d7c844b6cfed0ca5ef0d930565}} 
+\index{Message@{Message}!msg\+\_\+error@{msg\+\_\+error}}
+\index{msg\+\_\+error@{msg\+\_\+error}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+error()}{msg\_error()}}
+{\footnotesize\ttfamily msg\+\_\+error (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}error\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga1051f1ddca193760016f3021e885dfbb}\label{group__message_ga1051f1ddca193760016f3021e885dfbb}} 
+\index{Message@{Message}!msg\+\_\+failed@{msg\+\_\+failed}}
+\index{msg\+\_\+failed@{msg\+\_\+failed}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+failed()}{msg\_failed()}}
+{\footnotesize\ttfamily msg\+\_\+failed (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}failed\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_gad043c4df79f7cc2143ab6d3a67ea20da}\label{group__message_gad043c4df79f7cc2143ab6d3a67ea20da}} 
+\index{Message@{Message}!msg\+\_\+info@{msg\+\_\+info}}
+\index{msg\+\_\+info@{msg\+\_\+info}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+info()}{msg\_info()}}
+{\footnotesize\ttfamily msg\+\_\+info (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}info\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_gadba552b40430d43c306129dccb9bb6ba}\label{group__message_gadba552b40430d43c306129dccb9bb6ba}} 
+\index{Message@{Message}!msg\+\_\+not\+\_\+ok@{msg\+\_\+not\+\_\+ok}}
+\index{msg\+\_\+not\+\_\+ok@{msg\+\_\+not\+\_\+ok}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+not\+\_\+ok()}{msg\_not\_ok()}}
+{\footnotesize\ttfamily msg\+\_\+not\+\_\+ok (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}not ok\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga61150f29d9ff1be264ec6d95a7b10161}\label{group__message_ga61150f29d9ff1be264ec6d95a7b10161}} 
+\index{Message@{Message}!msg\+\_\+notice@{msg\+\_\+notice}}
+\index{msg\+\_\+notice@{msg\+\_\+notice}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+notice()}{msg\_notice()}}
+{\footnotesize\ttfamily msg\+\_\+notice (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}notice\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga9f9b130e50d82e4ef3bf3554df755078}\label{group__message_ga9f9b130e50d82e4ef3bf3554df755078}} 
+\index{Message@{Message}!msg\+\_\+ok@{msg\+\_\+ok}}
+\index{msg\+\_\+ok@{msg\+\_\+ok}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+ok()}{msg\_ok()}}
+{\footnotesize\ttfamily msg\+\_\+ok (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}ok\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga9df650b1c1239ff41a66696efa81efcd}\label{group__message_ga9df650b1c1239ff41a66696efa81efcd}} 
+\index{Message@{Message}!msg\+\_\+passed@{msg\+\_\+passed}}
+\index{msg\+\_\+passed@{msg\+\_\+passed}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+passed()}{msg\_passed()}}
+{\footnotesize\ttfamily msg\+\_\+passed (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}passed\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_gad80ab7ec02b8c2f8a2c53ff732a07db2}\label{group__message_gad80ab7ec02b8c2f8a2c53ff732a07db2}} 
+\index{Message@{Message}!msg\+\_\+status@{msg\+\_\+status}}
+\index{msg\+\_\+status@{msg\+\_\+status}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+status()}{msg\_status()}}
+{\footnotesize\ttfamily msg\+\_\+status (\begin{DoxyParamCaption}\item[{message}]{,  }\item[{status}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with its status at the end of the line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+{\em status} & Message status. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_ga34a1aa638a3fb510d440f5de95a903dc}\label{group__message_ga34a1aa638a3fb510d440f5de95a903dc}} 
+\index{Message@{Message}!msg\+\_\+success@{msg\+\_\+success}}
+\index{msg\+\_\+success@{msg\+\_\+success}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+success()}{msg\_success()}}
+{\footnotesize\ttfamily msg\+\_\+success (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}success\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__message_gae7ed668c9e2b1cf86059082cc6e28024}\label{group__message_gae7ed668c9e2b1cf86059082cc6e28024}} 
+\index{Message@{Message}!msg\+\_\+warning@{msg\+\_\+warning}}
+\index{msg\+\_\+warning@{msg\+\_\+warning}!Message@{Message}}
+\subsubsection{\texorpdfstring{msg\+\_\+warning()}{msg\_warning()}}
+{\footnotesize\ttfamily msg\+\_\+warning (\begin{DoxyParamCaption}\item[{message}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays a message with the \textquotesingle{}warning\textquotesingle{} status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Message to display. \\
+\hline
+\end{DoxyParams}

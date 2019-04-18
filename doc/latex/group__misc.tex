@@ -1,0 +1,75 @@
+\hypertarget{group__misc}{}\section{Miscellaneous}
+\label{group__misc}\index{Miscellaneous@{Miscellaneous}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__misc_gad27d9459ccd3e6c812ae0b285e47d7ed}{die} (errcode, errmsg, string)
+\begin{DoxyCompactList}\small\item\em Prints an error message to stderr and exits with the error code given as parameter. The message is also logged. \end{DoxyCompactList}\item 
+\hyperlink{group__misc_gaee8db3b60325e781e3e3037274e46411}{die\+\_\+if\+\_\+false} (errcode, errmsg, string)
+\begin{DoxyCompactList}\small\item\em Displays an error message and exits if the previous command has failed (if its error code is not \textquotesingle{}0\textquotesingle{}). \end{DoxyCompactList}\item 
+\hyperlink{group__misc_ga51f5ec17f1a80fdb9b339786645bf9fa}{die\+\_\+if\+\_\+true} (errcode, errmsg)
+\begin{DoxyCompactList}\small\item\em Displays an error message and exits if the previous command has succeeded (if its error code is \textquotesingle{}0\textquotesingle{}). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__misc_ga0c121287140dbce260ccffefd385e3fc}\label{group__misc_ga0c121287140dbce260ccffefd385e3fc}} 
+\hyperlink{group__misc_ga0c121287140dbce260ccffefd385e3fc}{is\+\_\+interactive} ()
+\begin{DoxyCompactList}\small\item\em Is current shell an interactive shell ? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__misc_gad27d9459ccd3e6c812ae0b285e47d7ed}\label{group__misc_gad27d9459ccd3e6c812ae0b285e47d7ed}} 
+\index{Miscellaneous@{Miscellaneous}!die@{die}}
+\index{die@{die}!Miscellaneous@{Miscellaneous}}
+\subsubsection{\texorpdfstring{die()}{die()}}
+{\footnotesize\ttfamily die (\begin{DoxyParamCaption}\item[{errcode}]{,  }\item[{errmsg}]{,  }\item[{string}]{ }\end{DoxyParamCaption})}
+
+
+
+Prints an error message to stderr and exits with the error code given as parameter. The message is also logged. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em errcode} & Error code. \\
+\hline
+{\em errmsg} & Error message. \\
+\hline
+{\em string} & (optional) Line caller info. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__misc_gaee8db3b60325e781e3e3037274e46411}\label{group__misc_gaee8db3b60325e781e3e3037274e46411}} 
+\index{Miscellaneous@{Miscellaneous}!die\+\_\+if\+\_\+false@{die\+\_\+if\+\_\+false}}
+\index{die\+\_\+if\+\_\+false@{die\+\_\+if\+\_\+false}!Miscellaneous@{Miscellaneous}}
+\subsubsection{\texorpdfstring{die\+\_\+if\+\_\+false()}{die\_if\_false()}}
+{\footnotesize\ttfamily die\+\_\+if\+\_\+false (\begin{DoxyParamCaption}\item[{errcode}]{,  }\item[{errmsg}]{,  }\item[{string}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays an error message and exits if the previous command has failed (if its error code is not \textquotesingle{}0\textquotesingle{}). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em errcode} & Error code. \\
+\hline
+{\em errmsg} & Error message. \\
+\hline
+{\em string} & (optional) Line caller info. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__misc_ga51f5ec17f1a80fdb9b339786645bf9fa}\label{group__misc_ga51f5ec17f1a80fdb9b339786645bf9fa}} 
+\index{Miscellaneous@{Miscellaneous}!die\+\_\+if\+\_\+true@{die\+\_\+if\+\_\+true}}
+\index{die\+\_\+if\+\_\+true@{die\+\_\+if\+\_\+true}!Miscellaneous@{Miscellaneous}}
+\subsubsection{\texorpdfstring{die\+\_\+if\+\_\+true()}{die\_if\_true()}}
+{\footnotesize\ttfamily die\+\_\+if\+\_\+true (\begin{DoxyParamCaption}\item[{errcode}]{,  }\item[{errmsg}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays an error message and exits if the previous command has succeeded (if its error code is \textquotesingle{}0\textquotesingle{}). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em errcode} & Error code. \\
+\hline
+{\em errmsg} & Error message. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,73 @@
+\hypertarget{group__time}{}\section{Time}
+\label{group__time}\index{Time@{Time}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__time_ga680d052e47a1d2360755d65934ccdf9f}{elapsed} (start, stop)
+\begin{DoxyCompactList}\small\item\em Displays the time elapsed between the \textquotesingle{}start\textquotesingle{} and \textquotesingle{}stop\textquotesingle{} parameters. \end{DoxyCompactList}\item 
+\hyperlink{group__time_ga80593ccdc0339775ddd5d82c37ca4f6b}{now} ()
+\begin{DoxyCompactList}\small\item\em Displays the current timestamp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__time_ga7e2fbddbf76933cd70d29512c2f12519}\label{group__time_ga7e2fbddbf76933cd70d29512c2f12519}} 
+\hyperlink{group__time_ga7e2fbddbf76933cd70d29512c2f12519}{start\+\_\+watch} ()
+\begin{DoxyCompactList}\small\item\em Starts the watch. \end{DoxyCompactList}\item 
+\hyperlink{group__time_gabdbb7601d766420b7be1703457c91aa7}{stop\+\_\+watch} ()
+\begin{DoxyCompactList}\small\item\em Stops the watch and displays the time elapsed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__time_ga680d052e47a1d2360755d65934ccdf9f}\label{group__time_ga680d052e47a1d2360755d65934ccdf9f}} 
+\index{Time@{Time}!elapsed@{elapsed}}
+\index{elapsed@{elapsed}!Time@{Time}}
+\subsubsection{\texorpdfstring{elapsed()}{elapsed()}}
+{\footnotesize\ttfamily elapsed (\begin{DoxyParamCaption}\item[{start}]{,  }\item[{stop}]{ }\end{DoxyParamCaption})}
+
+
+
+Displays the time elapsed between the \textquotesingle{}start\textquotesingle{} and \textquotesingle{}stop\textquotesingle{} parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & Start timestamp. \\
+\hline
+{\em stop} & Stop timestamp. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Time elapsed between the \textquotesingle{}start\textquotesingle{} and \textquotesingle{}stop\textquotesingle{} parameters. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__time_ga80593ccdc0339775ddd5d82c37ca4f6b}\label{group__time_ga80593ccdc0339775ddd5d82c37ca4f6b}} 
+\index{Time@{Time}!now@{now}}
+\index{now@{now}!Time@{Time}}
+\subsubsection{\texorpdfstring{now()}{now()}}
+{\footnotesize\ttfamily now (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the current timestamp. 
+
+\begin{DoxyReturn}{Returns}
+Current timestamp. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__time_gabdbb7601d766420b7be1703457c91aa7}\label{group__time_gabdbb7601d766420b7be1703457c91aa7}} 
+\index{Time@{Time}!stop\+\_\+watch@{stop\+\_\+watch}}
+\index{stop\+\_\+watch@{stop\+\_\+watch}!Time@{Time}}
+\subsubsection{\texorpdfstring{stop\+\_\+watch()}{stop\_watch()}}
+{\footnotesize\ttfamily stop\+\_\+watch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Stops the watch and displays the time elapsed. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if succeed. \\
+\hline
+{\em 1} & if the watch has not been started. \\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyReturn}{Returns}
+Time elapsed since the watch has been started. 
+\end{DoxyReturn}

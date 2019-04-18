@@ -1,0 +1,76 @@
+\hypertarget{group__stdin}{}\section{Read data from stdin}
+\label{group__stdin}\index{Read data from stdin@{Read data from stdin}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__stdin_gab3340d7b2aa97133190861db32e53f7a}{confirm} (string)
+\begin{DoxyCompactList}\small\item\em Read from stdin for confirmation. \end{DoxyCompactList}\item 
+\hyperlink{group__stdin_ga13f97ec87f85badbce75a410d1ee9d03}{read\+\_\+key} (string)
+\begin{DoxyCompactList}\small\item\em Read from stdin for any key pressed. \end{DoxyCompactList}\item 
+\hyperlink{group__stdin_ga48cdd2c9387240df93e79364425097f3}{read\+\_\+path} (string, string)
+\begin{DoxyCompactList}\small\item\em Read from stdin for a path with a default value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__stdin_gab3340d7b2aa97133190861db32e53f7a}\label{group__stdin_gab3340d7b2aa97133190861db32e53f7a}} 
+\index{Read data from stdin@{Read data from stdin}!confirm@{confirm}}
+\index{confirm@{confirm}!Read data from stdin@{Read data from stdin}}
+\subsubsection{\texorpdfstring{confirm()}{confirm()}}
+{\footnotesize\ttfamily confirm (\begin{DoxyParamCaption}\item[{string}]{ }\end{DoxyParamCaption})}
+
+
+
+Read from stdin for confirmation. 
+
+Read from stdin for confirmation with a fancy \mbox{[}y/n\mbox{]} echoed message. The value of the parameter controls the default value when empty input. 
+\begin{DoxyParams}{Parameters}
+{\em string} & Optional default value when the user provides and empty answer.
+\begin{DoxyItemize}
+\item If set to \char`\"{}y\char`\"{} an empty value will be interpreted as $<$yes$>$.
+\item If set to \char`\"{}n\char`\"{} an empty value will be interpreted as $<$no$>$.
+\item Other values disallow empty input value (the default). 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & if the confirmation is $<$yes$>$ \\
+\hline
+{\em 1} & in others cases. \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group__stdin_ga13f97ec87f85badbce75a410d1ee9d03}\label{group__stdin_ga13f97ec87f85badbce75a410d1ee9d03}} 
+\index{Read data from stdin@{Read data from stdin}!read\+\_\+key@{read\+\_\+key}}
+\index{read\+\_\+key@{read\+\_\+key}!Read data from stdin@{Read data from stdin}}
+\subsubsection{\texorpdfstring{read\+\_\+key()}{read\_key()}}
+{\footnotesize\ttfamily read\+\_\+key (\begin{DoxyParamCaption}\item[{string}]{ }\end{DoxyParamCaption})}
+
+
+
+Read from stdin for any key pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em string} & (optional) The message to display. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__stdin_ga48cdd2c9387240df93e79364425097f3}\label{group__stdin_ga48cdd2c9387240df93e79364425097f3}} 
+\index{Read data from stdin@{Read data from stdin}!read\+\_\+path@{read\+\_\+path}}
+\index{read\+\_\+path@{read\+\_\+path}!Read data from stdin@{Read data from stdin}}
+\subsubsection{\texorpdfstring{read\+\_\+path()}{read\_path()}}
+{\footnotesize\ttfamily read\+\_\+path (\begin{DoxyParamCaption}\item[{string}]{,  }\item[{string}]{ }\end{DoxyParamCaption})}
+
+
+
+Read from stdin for a path with a default value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em string} & Default value for the path. \\
+\hline
+{\em string} & The variable to set with the asked path. \\
+\hline
+\end{DoxyParams}
