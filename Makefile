@@ -38,4 +38,4 @@ gh-pages-git-branch-create: gh-pages-git-branch-init
 .PHONY: gh-pages-git-branch-create
 gh-pages: gh-pages-git-branch-create
 	git checkout gh-pages && git add . && git commit -am 'Generate Doc' && \
-	git subtree push --prefix doc/html origin gh-pages && git checkout master
+	git push --force origin gh-pages && git checkout master
