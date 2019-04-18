@@ -762,7 +762,7 @@ cmd() {
     RESULT=$(eval $COMMAND 2>&1)
     ERROR="$?"
 
-    local MSG="Command: ${COMMAND}"
+    local MSG="Command: ${COMMAND}  "
 
     tput cuu1
 
@@ -912,7 +912,7 @@ die_if_true() {
 
 ## @fn is_interactive()
 ## @ingroup misc
-## @brief Exit with
+## @brief Is current shell an interactive shell ?
 is_interactive() {
     case $- in
         *i*)    # interactive shell
@@ -1398,4 +1398,13 @@ confirm() {
 ## @param string The variable to set with the asked path.
 read_path() {
     read -e -p "" -i "$1" $2
+}
+
+## @fn read_key()
+## @ingroup stdin
+## @brief Read from stdin for any key pressed.
+## @param string (optional) The message to display.
+read_key() {
+    MSG=${1:-"Press any key to continue…"}
+    read -n 1 -s -r -p "$MSG"
 }
