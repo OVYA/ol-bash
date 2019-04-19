@@ -1404,6 +1404,6 @@ read_path() {
 ## @brief Read from stdin for any key pressed.
 ## @param string (optional) The message to display.
 read_key() {
-    MSG=${1:-"Press any key to continue…"}
+    local MSG=${1:-"Press any key to continue…"}
     read -n 1 -s -r -p "$MSG"
 }
