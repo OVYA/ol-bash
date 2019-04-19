@@ -788,10 +788,10 @@ cmd() {
 ## Combine the functions `cmd` and `die_if_false` to die on error.
 ## @param command Command to execute.
 cmd_or_die() {
-    COMMAND="$1"
+    local COMMAND="$1"
     cmd "$COMMAND"
-    ERROR="$?"
-    MSG="Set LOG_ENABLED=y to log the errors on a file or DEBUG=y"
+    local ERROR="$?"
+    local MSG='Set LOG_ENABLED=y to log the errors on a file or DEBUG=y'
 
     if option_enabled LOG_ENABLED
     then
@@ -877,8 +877,7 @@ die() {
 
 ## @fn die_if_false()
 ## @ingroup misc
-## @brief Displays an error message and exits if the previous
-## command has failed (if its error code is not '0').
+## @brief Displays an error message and exits if error code is not 0.
 ## @param errcode Error code.
 ## @param errmsg Error message.
 ## @param string (optional) Line caller info.
