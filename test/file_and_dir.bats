@@ -41,6 +41,26 @@ teardown() {
     [ "$output" == '' ]
 }
 
+# directory_is_empty()
+# --------------------------------------------------------------#
+
+@test "directory_is_empty() on an existing empty directory" {
+    directory_is_empty test_dir
+    [ "$output" == '' ]
+}
+
+@test "directory_is_empty() on a non existent directory" {
+    directory_is_empty nonexistent_dir
+    [ "$output" == '' ]
+}
+
+@test "directory_is_empty() on a non empty directory" {
+    touch test_dir/plop
+    run directory_is_empty test_dir
+    [ "$status" -eq 1 ]
+    [ "$output" == '' ]
+}
+
 # device_exists()
 # --------------------------------------------------------------#
 

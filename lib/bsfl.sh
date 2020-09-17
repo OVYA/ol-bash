@@ -216,6 +216,24 @@ directory_exists() {
     return 1
 }
 
+## @fn directory_is_empty()
+## @ingroup file_and_dir
+## @brief Tests if a directory is empty
+## A directory that does not exist can not be "non empty" so it's considered as empty.
+## @param directory Directory to operate on.
+## @retval 0 if the directory is empty or does not exist.
+## @retval 1 in others cases.
+directory_is_empty() {
+    if ! directory_exists "$1"; then
+        return 0
+    fi
+
+    if [[ $(ls -A "$1" | wc -l) -ne 0 ]]; then
+        return 1
+    fi
+    return 0
+}
+
 ## @fn file_exists()
 ## @ingroup file_and_dir
 ## @brief Tests if a file exists.
