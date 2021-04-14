@@ -1425,3 +1425,22 @@ read_key() {
     local MSG=${1:-"Press any key to continue…"}
     read -n 1 -s -r -p "$MSG"
 }
+
+## @fn read_password()
+## @ingroup stdin
+## @brief Read from stdin without echoing.
+## @param string (optional) The message to display.
+## @param string The variable to set with the asked path.
+read_password() {
+    local PASS_CONFIRM='«↓ð€ŀ¬z>(" X=1.Ge/b]ZlS(:!F#r}x	'
+    local MSG=${1:-"Enter the password :"}
+
+    while [ "${!2}" != "$PASS_CONFIRM" ]
+    do
+        read -s -p "$MSG" $2
+        echo
+        read -s -p "Please, confirm the password : " PASS_CONFIRM
+        echo
+        [ "${!2}" != "$PASS_CONFIRM" ] && msg_warning 'The two given passwords mismatch.'
+    done
+}
