@@ -96,8 +96,12 @@ declare -r MAGENTA="tput setaf 5"
 declare -r CYAN="tput setaf 6"
 
 ## @var BOLD
-## @brief Internal color.
+## @brief Bold font.
 declare -r BOLD="tput bold"
+
+## @var OFFBOLD
+## @brief No bold font.
+OFFBOLD="tput rmso"
 
 ## @var DEFAULT_CLR
 ## @brief Internal color.
