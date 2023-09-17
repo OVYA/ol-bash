@@ -43,22 +43,6 @@ load ../lib/bsfl
     echo "$output" | grep -q "\[Y/n\]"
 }
 
-@test "confirm() message should conform [Y/n] with option '[yY]'" {
-    run confirm 'y' <<< "n"
-    echo "$output" | grep -q "\[Y/n\]"
-
-    run confirm 'Y' <<< "n"
-    echo "$output" | grep -q "\[Y/n\]"
-}
-
-@test "confirm() should return 0 with option '[yY]' and empty input" {
-    run confirm "y" <<< ""
-    [ "$status" -eq 0 ]
-
-    run confirm "Y" <<< ""
-    [ "$status" -eq 0 ]
-}
-
 @test "confirm() should return 0 with option '[yY]' and empty input" {
     run confirm "y" <<< ""
     [ "$status" -eq 0 ]

@@ -73,63 +73,63 @@ declare __TMP_STACK
 
 ## @var RED
 ## @brief Internal color.
-declare -r RED="tput setaf 1"
+declare -r RED="$(tty -s && echo 'tput setaf 1')"
 
 ## @var GREEN
 ## @brief Internal color.
-declare -r GREEN="tput setaf 2"
+declare -r GREEN="$(tty -s && echo 'tput setaf 2')"
 
 ## @var YELLOW
 ## @brief Internal color.
-declare -r YELLOW="tput setaf 3"
+declare -r YELLOW="$(tty -s && echo 'tput setaf 3')"
 
 ## @var BLUE
 ## @brief Internal color.
-declare -r BLUE="tput setaf 4"
+declare -r BLUE="$(tty -s && echo 'tput setaf 4')"
 
 ## @var MAGENTA
 ## @brief Internal color.
-declare -r MAGENTA="tput setaf 5"
+declare -r MAGENTA="$(tty -s && echo 'tput setaf 5')"
 
 ## @var CYAN
 ## @brief Internal color.
-declare -r CYAN="tput setaf 6"
+declare -r CYAN="$(tty -s && echo 'tput setaf 6')"
 
 ## @var BOLD
 ## @brief Bold font.
-declare -r BOLD="tput bold"
+declare -r BOLD="$(tty -s && echo 'tput bold')"
 
 ## @var OFFBOLD
 ## @brief No bold font.
-OFFBOLD="tput rmso"
+OFFBOLD="$(tty -s && echo 'tput rmso')"
 
 ## @var DEFAULT_CLR
 ## @brief Internal color.
-declare -r DEFAULT_CLR="tput sgr0"
+declare -r DEFAULT_CLR="$(tty -s && echo 'tput sgr0')"
 
 ## @var RED_BG
 ## @brief Internal color.
-declare -r RED_BG="tput setab 1"
+declare -r RED_BG="$(tty -s && echo 'tput setab 1')"
 
 ## @var GREEN_BG
 ## @brief Internal color.
-declare -r GREEN_BG="tput setab 2"
+declare -r GREEN_BG="$(tty -s && echo 'tput setab 2')"
 
 ## @var YELLOW_BG
 ## @brief Internal color.
-declare -r YELLOW_BG="tput setab 3"
+declare -r YELLOW_BG="$(tty -s && echo 'tput setab 3')"
 
 ## @var BLUE_BG
 ## @brief Internal color.
-declare -r BLUE_BG="tput setab 4"
+declare -r BLUE_BG="$(tty -s && echo 'tput setab 4')"
 
 ## @var MAGENTA_BG
 ## @brief Internal color.
-declare -r MAGENTA_BG="tput setab 5"
+declare -r MAGENTA_BG="$(tty -s && echo 'tput setab 5')"
 
 ## @var CYAN_BG
 ## @brief Internal color.
-declare -r CYAN_BG="tput setab 6"
+declare -r CYAN_BG="$(tty -s && echo 'tput setab 6')"
 
 # Configuration
 # --------------------------------------------------------------#
