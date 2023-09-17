@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# -*- tab-width: 4; encoding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 
 ## @file
 ## @mainpage
@@ -167,7 +167,7 @@ set +o histexpand
 ## @retval 0 if the variable is defined.
 ## @retval 1 in others cases.
 defined() {
-    [ ! -z ${!1+set} ]
+  [ ! -z ${!1+set} ]
 }
 
 ## @fn has_value()
@@ -177,12 +177,12 @@ defined() {
 ## @retval 0 if the variable is defined and if value's length > 0.
 ## @retval 1 in others cases.
 has_value() {
-    if defined $1; then
-        if [[ -n ${!1} ]]; then
-            return 0
-        fi
+  if defined $1; then
+    if [[ -n ${!1} ]]; then
+      return 0
     fi
-    return 1
+  fi
+  return 1
 }
 
 ## @fn option_enabled()
@@ -194,14 +194,14 @@ has_value() {
 ## @retval 0 if the variable is set to "y" or "yes".
 ## @retval 1 in others cases.
 option_enabled() {
-    VAR="$1"
-    VAR_VALUE=$(eval echo \$$VAR)
-    if [[ "$VAR_VALUE" == "y" ]] || [[ "$VAR_VALUE" == "yes" ]]
-    then
-        return 0
-    else
-        return 1
-    fi
+  VAR="$1"
+  VAR_VALUE=$(eval echo \$$VAR)
+  if [[ "$VAR_VALUE" == "y" ]] || [[ "$VAR_VALUE" == "yes" ]]
+  then
+    return 0
+  else
+    return 1
+  fi
 }
 
 # Group: File and Directory
@@ -214,10 +214,10 @@ option_enabled() {
 ## @retval 0 if the directory exists.
 ## @retval 1 in others cases.
 directory_exists() {
-    if [[ -d "$1" ]]; then
-        return 0
-    fi
-    return 1
+  if [[ -d "$1" ]]; then
+    return 0
+  fi
+  return 1
 }
 
 ## @fn directory_is_empty()
@@ -228,14 +228,14 @@ directory_exists() {
 ## @retval 0 if the directory is empty or does not exist.
 ## @retval 1 in others cases.
 directory_is_empty() {
-    if ! directory_exists "$1"; then
-        return 0
-    fi
-
-    if [[ $(ls -A "$1" | wc -l) -ne 0 ]]; then
-        return 1
-    fi
+  if ! directory_exists "$1"; then
     return 0
+  fi
+
+  if [[ $(ls -A "$1" | wc -l) -ne 0 ]]; then
+    return 1
+  fi
+  return 0
 }
 
 ## @fn file_exists()
@@ -245,10 +245,10 @@ directory_is_empty() {
 ## @retval 0 if the (regular) file exists.
 ## @retval 1 in others cases.
 file_exists() {
-    if [[ -f "$1" ]]; then
-        return 0
-    fi
-    return 1
+  if [[ -f "$1" ]]; then
+    return 0
+  fi
+  return 1
 }
 
 ## @fn device_exists()
@@ -258,10 +258,10 @@ file_exists() {
 ## @retval 0 if the device exists.
 ## @retval 1 in others cases.
 device_exists() {
-    if [[ -b "$1" ]]; then
-        return 0
-    fi
-    return 1
+  if [[ -b "$1" ]]; then
+    return 0
+  fi
+  return 1
 }
 
 # Group: String
@@ -273,7 +273,7 @@ device_exists() {
 ## @param string String to operate on.
 ## @return Lowercase string.
 to_lower() {
-    echo "$1" | tr '[:upper:]' '[:lower:]'
+  echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
 ## @fn to_upper()
@@ -282,7 +282,7 @@ to_lower() {
 ## @param string String to operate on.
 ## @return Uppercase string.
 to_upper() {
-    echo "$1" | tr '[:lower:]' '[:upper:]'
+  echo "$1" | tr '[:lower:]' '[:upper:]'
 }
 
 ## @fn trim()
@@ -291,7 +291,7 @@ to_upper() {
 ## @param string String to operate on.
 ## @return The string stripped of whitespace from both ends.
 trim() {
-    echo $1
+  echo $1
 }
 
 # Group: Log
@@ -302,11 +302,11 @@ trim() {
 ## @brief Logs a message using syslog.
 ## @param message Message to be logged.
 log2syslog() {
-    if option_enabled  SYSLOG_ENABLED
-    then
-        local MESSAGE="$1"
-        logger -t "$SYSLOG_TAG" " $MESSAGE" # The space is not a typo!
-    fi
+  if option_enabled  SYSLOG_ENABLED
+  then
+    local MESSAGE="$1"
+    logger -t "$SYSLOG_TAG" " $MESSAGE" # The space is not a typo!
+  fi
 }
 
 ## @fn log()
@@ -315,31 +315,31 @@ log2syslog() {
 ## @param message Message to be logged.
 ## @param status Message status.
 log() {
-    if option_enabled LOG_ENABLED || option_enabled SYSLOG_ENABLED
+  if option_enabled LOG_ENABLED || option_enabled SYSLOG_ENABLED
+  then
+    local LOG_MESSAGE="$1"
+    local STATE="$2"
+    local DATE=`date +"$LOGDATEFORMAT"`
+
+    if has_value LOG_MESSAGE
     then
-        local LOG_MESSAGE="$1"
-        local STATE="$2"
-        local DATE=`date +"$LOGDATEFORMAT"`
-
-        if has_value LOG_MESSAGE
-        then
-            LOG_STRING="$DATE $STATE - $LOG_MESSAGE"
-        else
-            LOG_STRING="$DATE -- empty log message, no input received --"
-        fi
-
-        if option_enabled LOG_ENABLED
-        then
-            echo "$LOG_STRING" >> "$LOG_FILE"
-        fi
-
-        if option_enabled SYSLOG_ENABLED
-        then
-            # Syslog already prepends a date/time stamp so only the message
-            # is logged.
-            log2syslog "$LOG_MESSAGE"
-        fi
+      LOG_STRING="$DATE $STATE - $LOG_MESSAGE"
+    else
+      LOG_STRING="$DATE -- empty log message, no input received --"
     fi
+
+    if option_enabled LOG_ENABLED
+    then
+      echo "$LOG_STRING" >> "$LOG_FILE"
+    fi
+
+    if option_enabled SYSLOG_ENABLED
+    then
+      # Syslog already prepends a date/time stamp so only the message
+      # is logged.
+      log2syslog "$LOG_MESSAGE"
+    fi
+  fi
 }
 
 ## @fn log_status()
@@ -349,13 +349,13 @@ log() {
 ## @param message Message to be logged.
 ## @param status Message status.
 log_status() {
-    if option_enabled LOG_ENABLED
-    then
-        local MESSAGE="$1"
-        local STATUS="$2"
+  if option_enabled LOG_ENABLED
+  then
+    local MESSAGE="$1"
+    local STATUS="$2"
 
-        log "$MESSAGE" "$STATUS"
-    fi
+    log "$MESSAGE" "$STATUS"
+  fi
 }
 
 ## @fn log_emergency()
@@ -363,9 +363,9 @@ log_status() {
 ## @brief Logs a message with the 'emergency' status.
 ## @param message Message to be logged.
 log_emergency() {
-    local MESSAGE="$1"
-    local STATUS="EMERGENCY"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="EMERGENCY"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_alert()
@@ -373,9 +373,9 @@ log_emergency() {
 ## @brief Logs a message with the 'alert' status.
 ## @param message Message to be logged.
 log_alert() {
-    local MESSAGE="$1"
-    local STATUS="ALERT"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="ALERT"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_critical()
@@ -383,9 +383,9 @@ log_alert() {
 ## @brief Logs a message with the 'critical' status.
 ## @param message Message to be logged.
 log_critical() {
-    local MESSAGE="$1"
-    local STATUS="CRITICAL"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="CRITICAL"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_error()
@@ -393,9 +393,9 @@ log_critical() {
 ## @brief Logs a message with the 'error' status.
 ## @param message Message to be logged.
 log_error() {
-    local MESSAGE="$1"
-    local STATUS="ERROR"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="ERROR"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_warning()
@@ -403,9 +403,9 @@ log_error() {
 ## @brief Logs a message with the 'warning' status.
 ## @param message Message to be logged.
 log_warning() {
-    local MESSAGE="$1"
-    local STATUS="WARNING"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="WARNING"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_notice()
@@ -413,9 +413,9 @@ log_warning() {
 ## @brief Logs a message with the 'notice' status.
 ## @param message Message to be logged.
 log_notice() {
-    local MESSAGE="$1"
-    local STATUS="NOTICE"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="NOTICE"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_info()
@@ -423,9 +423,9 @@ log_notice() {
 ## @brief Logs a message with the 'info' status.
 ## @param message Message to be logged.
 log_info() {
-    local MESSAGE="$1"
-    local STATUS="INFO"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="INFO"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_debug()
@@ -433,9 +433,9 @@ log_info() {
 ## @brief Logs a message with the 'debug' status.
 ## @param message Message to be logged.
 log_debug() {
-    local MESSAGE="$1"
-    local STATUS="DEBUG"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="DEBUG"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_ok()
@@ -443,9 +443,9 @@ log_debug() {
 ## @brief Logs a message with the 'ok' status.
 ## @param message Message to be logged.
 log_ok() {
-    local MESSAGE="$1"
-    local STATUS="OK"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="OK"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_not_ok()
@@ -453,9 +453,9 @@ log_ok() {
 ## @brief Logs a message with the 'not ok' status.
 ## @param message Message to be logged.
 log_not_ok() {
-    local MESSAGE="$1"
-    local STATUS="NOT_OK"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="NOT_OK"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_failed()
@@ -463,9 +463,9 @@ log_not_ok() {
 ## @brief Logs a message with the 'failed' status.
 ## @param message Message to be logged.
 log_failed() {
-    local MESSAGE="$1"
-    local STATUS="FAILED"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="FAILED"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_success()
@@ -473,9 +473,9 @@ log_failed() {
 ## @brief Logs a message with the 'success' status.
 ## @param message Message to be logged.
 log_success() {
-    local MESSAGE="$1"
-    local STATUS="SUCCESS"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="SUCCESS"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn log_passed()
@@ -483,9 +483,9 @@ log_success() {
 ## @brief Logs a message with the 'passed' status.
 ## @param message Message to be logged.
 log_passed() {
-    local MESSAGE="$1"
-    local STATUS="PASSED"
-    log_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="PASSED"
+  log_status "$MESSAGE" "$STATUS"
 }
 
 # Group: Message
@@ -499,30 +499,30 @@ log_passed() {
 ## @param message Message to display.
 ## @param color Text color.
 msg() {
-    MESSAGE="$1"
-    COLOR="$2"
+  MESSAGE="$1"
+  COLOR="$2"
 
-    if ! has_value COLOR
-    then
-        COLOR="$DEFAULT_CLR"
-    fi
+  if ! has_value COLOR
+  then
+    COLOR="$DEFAULT_CLR"
+  fi
 
-    if [[ ! -z "$MESSAGE" ]]
+  if [[ ! -z "$MESSAGE" ]]
+  then
+    $COLOR
+    echo -e "$MESSAGE"
+    $DEFAULT_CLR
+    if ! option_enabled "DONOTLOG"
     then
-        $COLOR
-        echo "$MESSAGE"
-        $DEFAULT_CLR
-        if ! option_enabled "DONOTLOG"
-        then
-            log "$MESSAGE"
-        fi
-    else
-        echo "-- no message received --"
-        if ! option_enabled "DONOTLOG"
-        then
-            log "$MESSAGE"
-        fi
+      log "$MESSAGE"
     fi
+  else
+    echo "-- no message received --"
+    if ! option_enabled "DONOTLOG"
+    then
+      log "$MESSAGE"
+    fi
+  fi
 }
 
 ## @fn msg_status()
@@ -531,14 +531,14 @@ msg() {
 ## @param message Message to display.
 ## @param status Message status.
 msg_status() {
-    local MESSAGE="$1"
-    local STATUS="$2"
+  local MESSAGE="$1"
+  local STATUS="$2"
 
-    export DONOTLOG="yes"
-    log_status "$MESSAGE" "$STATUS"
-    msg "$MESSAGE"
-    display_status "$STATUS"
-    export DONOTLOG="no"
+  export DONOTLOG="yes"
+  log_status "$MESSAGE" "$STATUS"
+  msg "$MESSAGE"
+  display_status "$STATUS"
+  export DONOTLOG="no"
 }
 
 ## @fn msg_emergency()
@@ -546,9 +546,9 @@ msg_status() {
 ## @brief Displays a message with the 'emergency' status.
 ## @param message Message to display.
 msg_emergency() {
-    local MESSAGE="$1"
-    local STATUS="EMERGENCY"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="EMERGENCY"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_alert()
@@ -556,9 +556,9 @@ msg_emergency() {
 ## @brief Displays a message with the 'alert' status.
 ## @param message Message to display.
 msg_alert() {
-    local MESSAGE="$1"
-    local STATUS="ALERT"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="ALERT"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_critical()
@@ -566,9 +566,9 @@ msg_alert() {
 ## @brief Displays a message with the 'critical' status.
 ## @param message Message to display.
 msg_critical() {
-    local MESSAGE="$1"
-    local STATUS="CRITICAL"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="CRITICAL"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_error()
@@ -576,9 +576,9 @@ msg_critical() {
 ## @brief Displays a message with the 'error' status.
 ## @param message Message to display.
 msg_error() {
-    local MESSAGE="$1"
-    local STATUS="ERROR"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="ERROR"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_warning()
@@ -586,9 +586,9 @@ msg_error() {
 ## @brief Displays a message with the 'warning' status.
 ## @param message Message to display.
 msg_warning() {
-    local MESSAGE="$1"
-    local STATUS="WARNING"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="WARNING"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_notice()
@@ -596,9 +596,9 @@ msg_warning() {
 ## @brief Displays a message with the 'notice' status.
 ## @param message Message to display.
 msg_notice() {
-    local MESSAGE="$1"
-    local STATUS="NOTICE"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="NOTICE"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_info()
@@ -606,9 +606,9 @@ msg_notice() {
 ## @brief Displays a message with the 'info' status.
 ## @param message Message to display.
 msg_info() {
-    local MESSAGE="$1"
-    local STATUS="INFO"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="INFO"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_debug()
@@ -616,9 +616,9 @@ msg_info() {
 ## @brief Displays a message with the 'debug' status.
 ## @param message Message to display.
 msg_debug() {
-    local MESSAGE="$1"
-    local STATUS="DEBUG"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="DEBUG"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_ok()
@@ -626,9 +626,9 @@ msg_debug() {
 ## @brief Displays a message with the 'ok' status.
 ## @param message Message to display.
 msg_ok() {
-    local MESSAGE="$1"
-    local STATUS="OK"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="OK"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_not_ok()
@@ -636,9 +636,9 @@ msg_ok() {
 ## @brief Displays a message with the 'not ok' status.
 ## @param message Message to display.
 msg_not_ok() {
-    local MESSAGE="$1"
-    local STATUS="NOT_OK"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="NOT_OK"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_failed()
@@ -646,9 +646,9 @@ msg_not_ok() {
 ## @brief Displays a message with the 'failed' status.
 ## @param message Message to display.
 msg_failed() {
-    local MESSAGE="$1"
-    local STATUS="FAILED"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="FAILED"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_success()
@@ -656,9 +656,9 @@ msg_failed() {
 ## @brief Displays a message with the 'success' status.
 ## @param message Message to display.
 msg_success() {
-    local MESSAGE="$1"
-    local STATUS="SUCCESS"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="SUCCESS"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn msg_passed()
@@ -666,9 +666,9 @@ msg_success() {
 ## @brief Displays a message with the 'passed' status.
 ## @param message Message to display.
 msg_passed() {
-    local MESSAGE="$1"
-    local STATUS="PASSED"
-    msg_status "$MESSAGE" "$STATUS"
+  local MESSAGE="$1"
+  local STATUS="PASSED"
+  msg_status "$MESSAGE" "$STATUS"
 }
 
 ## @fn __raw_status()
@@ -682,23 +682,23 @@ msg_passed() {
 ## @param status Message status.
 ## @param color Message color.
 __raw_status() {
-    local STATUS="$1"
-    COLOR="$2"
+  local STATUS="$1"
+  COLOR="$2"
 
-    position_cursor () {
-        let RES_COL=`tput cols`-12
-        tput cuf $RES_COL
-        tput cuu1
-    }
+  position_cursor () {
+    let RES_COL=`tput cols`-12
+    tput cuf $RES_COL
+    tput cuu1
+  }
 
-    position_cursor
-    echo -n "["
-    $DEFAULT_CLR
-    $BOLD
-    $COLOR
-    echo -n "$STATUS"
-    $DEFAULT_CLR
-    echo "]"
+  position_cursor
+  echo -n "["
+  $DEFAULT_CLR
+  $BOLD
+  $COLOR
+  echo -n "$STATUS"
+  $DEFAULT_CLR
+  echo "]"
 }
 
 ## @fn display_status()
@@ -707,67 +707,67 @@ __raw_status() {
 ## side of the screen.
 ## @param status Message status to display.
 display_status() {
-    local STATUS="$1"
+  local STATUS="$1"
 
-    case $STATUS in
-        EMERGENCY )
-            STATUS="EMERGENCY"
-            COLOR="$RED"
-            ;;
-        ALERT )
-            STATUS="  ALERT  "
-            COLOR="$RED"
-            ;;
-        CRITICAL )
-            STATUS="CRITICAL "
-            COLOR="$RED"
-            ;;
-        ERROR )
-            STATUS="  ERROR  "
-            COLOR="$RED"
-            ;;
-        WARNING )
-            STATUS=" WARNING "
-            COLOR="$YELLOW"
-            ;;
-        NOTICE )
-            STATUS=" NOTICE  "
-            COLOR="$BLUE"
-            ;;
-        INFO )
-            STATUS="  INFO   "
-            COLOR="$CYAN"
-            ;;
-        DEBUG )
-            STATUS="  DEBUG  "
-            COLOR="$DEFAULT_CLR"
-            ;;
-        OK  )
-            STATUS="   OK    "
-            COLOR="$GREEN"
-            ;;
-        NOT_OK)
-            STATUS=" NOT OK  "
-            COLOR="$RED"
-            ;;
-        PASSED )
-            STATUS=" PASSED  "
-            COLOR="$GREEN"
-            ;;
-        SUCCESS )
-            STATUS=" SUCCESS "
-            COLOR="$GREEN"
-            ;;
-        FAILURE | FAILED )
-            STATUS=" FAILED  "
-            COLOR="$RED"
-            ;;
-        *)
-            STATUS="UNDEFINED"
-            COLOR="$YELLOW"
-    esac
+  case $STATUS in
+    EMERGENCY )
+      STATUS="EMERGENCY"
+      COLOR="$RED"
+      ;;
+    ALERT )
+      STATUS="  ALERT  "
+      COLOR="$RED"
+      ;;
+    CRITICAL )
+      STATUS="CRITICAL "
+      COLOR="$RED"
+      ;;
+    ERROR )
+      STATUS="  ERROR  "
+      COLOR="$RED"
+      ;;
+    WARNING )
+      STATUS=" WARNING "
+      COLOR="$YELLOW"
+      ;;
+    NOTICE )
+      STATUS=" NOTICE  "
+      COLOR="$BLUE"
+      ;;
+    INFO )
+      STATUS="  INFO   "
+      COLOR="$CYAN"
+      ;;
+    DEBUG )
+      STATUS="  DEBUG  "
+      COLOR="$DEFAULT_CLR"
+      ;;
+    OK  )
+      STATUS="   OK    "
+      COLOR="$GREEN"
+      ;;
+    NOT_OK)
+      STATUS=" NOT OK  "
+      COLOR="$RED"
+      ;;
+    PASSED )
+      STATUS=" PASSED  "
+      COLOR="$GREEN"
+      ;;
+    SUCCESS )
+      STATUS=" SUCCESS "
+      COLOR="$GREEN"
+      ;;
+    FAILURE | FAILED )
+      STATUS=" FAILED  "
+      COLOR="$RED"
+      ;;
+    *)
+      STATUS="UNDEFINED"
+      COLOR="$YELLOW"
+  esac
 
-    __raw_status "$STATUS" "$COLOR"
+  __raw_status "$STATUS" "$COLOR"
 }
 
 # Group: Command
@@ -778,30 +778,31 @@ display_status() {
 ## @brief Executes a command and displays its status ('OK' or 'FAILED').
 ## @param command Command to execute.
 cmd() {
-    local -r COMMAND="$1"
-    msg "Executing: ${COMMAND}"
+  local -r COMMAND="$1"
+  msg "[Executing] ${COMMAND}"
 
-    RESULT=$(eval $COMMAND 2>&1)
-    ERROR="$?"
+  RESULT=$(eval $COMMAND 2>&1)
+  ERROR="$?"
 
-    local MSG="Command: ${COMMAND}  "
+  local MSG="[Executing] ${COMMAND}  "
 
-    tput cuu1
+  tput cuu1
 
-    if [ "$ERROR" == "0" ]
-    then
-        msg_ok "$MSG"
-    else
-        msg_failed "$MSG"
-        has_value RESULT && log "$RESULT"
-    fi
+  if [ "$ERROR" == "0" ]
+  then
+    msg_ok "$MSG"
+  else
+    msg_failed "$MSG"
+    has_value RESULT && log "$RESULT"
+  fi
 
-    if option_enabled DEBUG
-    then
-        has_value RESULT && msg "$RESULT"
-    fi
+  if option_enabled DEBUG
+  then
+    RESULT=$(echo "$RESULT" | nl -bn)
+    has_value RESULT && msg "$RESULT"
+  fi
 
-    return "$ERROR"
+  return "$ERROR"
 }
 
 ## @fn cmd_or_die()
@@ -810,19 +811,19 @@ cmd() {
 ## Combine the functions `cmd` and `die_if_false` to die on error.
 ## @param command Command to execute.
 cmd_or_die() {
-    local COMMAND="$1"
-    cmd "$COMMAND"
-    local ERROR="$?"
-    local MSG='Set LOG_ENABLED=y to log the errors on a file or DEBUG=y'
+  local COMMAND="$1"
+  cmd "$COMMAND"
+  local ERROR="$?"
+  local MSG='Set LOG_ENABLED=y to log the errors on a file or DEBUG=y'
 
-    if option_enabled LOG_ENABLED
-    then
-        MSG="Error are logged in the file $LOG_FILE"
-    fi
+  if option_enabled LOG_ENABLED
+  then
+    MSG="Error are logged in the file $LOG_FILE"
+  fi
 
-    die_if_false "$ERROR" "Last Command failed. ${MSG}." "$(caller 0)"
+  die_if_false "$ERROR" "Command '$COMMAND' failed.\n -> ${MSG}." "$(caller 0)"
 
-    return "$ERROR"
+  return "$ERROR"
 }
 
 # Group: Time
@@ -833,7 +834,7 @@ cmd_or_die() {
 ## @brief Displays the current timestamp.
 ## @return Current timestamp.
 now() {
-    echo $(date +%s)
+  echo $(date +%s)
 }
 
 ## @fn elapsed()
@@ -844,18 +845,18 @@ now() {
 ## @param stop Stop timestamp.
 ## @return Time elapsed between the 'start' and 'stop' parameters.
 elapsed() {
-    START="$1"
-    STOP="$2"
+  START="$1"
+  STOP="$2"
 
-    ELAPSED=$(( STOP - START ))
-    echo $ELAPSED
+  ELAPSED=$(( STOP - START ))
+  echo $ELAPSED
 }
 
 ## @fn start_watch()
 ## @ingroup time
 ## @brief Starts the watch.
 start_watch() {
-    __START_WATCH=`now`
+  __START_WATCH=`now`
 }
 
 ## @fn stop_watch()
@@ -865,14 +866,14 @@ start_watch() {
 ## @retval 1 if the watch has not been started.
 ## @return Time elapsed since the watch has been started.
 stop_watch() {
-    if has_value __START_WATCH
-    then
-        STOP_WATCH=`now`
-        elapsed "$__START_WATCH" "$STOP_WATCH"
-        return 0
-    else
-        return 1
-    fi
+  if has_value __START_WATCH
+  then
+    STOP_WATCH=`now`
+    elapsed "$__START_WATCH" "$STOP_WATCH"
+    return 0
+  else
+    return 1
+  fi
 }
 
 # Group: Miscellaneous
@@ -887,14 +888,14 @@ stop_watch() {
 ## @param errmsg Error message.
 ## @param string (optional) Line caller info.
 die() {
-    local -r err_code="$1"
-    local -r err_msg="$2"
-    local -r err_caller="${3:-$(caller 0)}"
+  local -r err_code="$1"
+  local -r err_msg="$2"
+  local -r err_caller="${3:-$(caller 0)}"
 
-    msg "ERROR: $err_msg"
-    msg "ERROR: At line $err_caller"
-    msg "ERROR: Error code = $err_code"
-    exit "$err_code"
+  msg "ERROR: $err_msg"
+  msg "ERROR: At line $err_caller"
+  msg "ERROR: Error code = $err_code"
+  exit "$err_code"
 } >&2 # function writes to stderr
 
 ## @fn die_if_false()
@@ -904,14 +905,14 @@ die() {
 ## @param errmsg Error message.
 ## @param string (optional) Line caller info.
 die_if_false() {
-    local -r err_code=$1
-    local -r err_msg=$2
-    local -r err_caller=${3:-$(caller 0)}
+  local -r err_code=$1
+  local -r err_msg=$2
+  local -r err_caller=${3:-$(caller 0)}
 
-    if [[ "$err_code" != "0" ]]
-    then
-        die $err_code "$err_msg" "$err_caller"
-    fi
+  if [[ "$err_code" != "0" ]]
+  then
+    die $err_code "$err_msg" "$err_caller"
+  fi
 } >&2 # function writes to stderr
 
 ## @fn die_if_true()
@@ -921,28 +922,28 @@ die_if_false() {
 ## @param errcode Error code.
 ## @param errmsg Error message.
 die_if_true() {
-    local -r err_code=$1
-    local -r err_msg=$2
-    local -r err_caller=$(caller 0)
+  local -r err_code=$1
+  local -r err_msg=$2
+  local -r err_caller=$(caller 0)
 
-    if [[ "$err_code" == "0" ]]
-    then
-        die $err_code "$err_msg" "$err_caller"
-    fi
+  if [[ "$err_code" == "0" ]]
+  then
+    die $err_code "$err_msg" "$err_caller"
+  fi
 } >&2 # function writes to stderr
 
 ## @fn is_interactive()
 ## @ingroup misc
 ## @brief Is current shell an interactive shell ?
 is_interactive() {
-    case $- in
-        *i*)    # interactive shell
-            return 0
-            ;;
-        *)      # non-interactive shell
-            return 1
-            ;;
-    esac
+  case $- in
+    *i*)    # interactive shell
+      return 0
+      ;;
+    *)      # non-interactive shell
+      return 1
+      ;;
+  esac
 }
 
 # Group: Array
@@ -955,13 +956,13 @@ is_interactive() {
 ## @param array Array name.
 ## @param item Item to append.
 __array_append() {
-    echo -n 'eval '
-    echo -n "$1" # array name
-    echo -n '=( "${'
-    echo -n "$1"
-    echo -n '[@]}" "'
-    echo -n "$2" # item to append
-    echo -n '" )'
+  echo -n 'eval '
+  echo -n "$1" # array name
+  echo -n '=( "${'
+  echo -n "$1"
+  echo -n '[@]}" "'
+  echo -n "$2" # item to append
+  echo -n '" )'
 }
 
 ## @fn __array_append_first()
@@ -971,11 +972,11 @@ __array_append() {
 ## @param array Array name.
 ## @param item Item to append.
 __array_append_first() {
-    echo -n 'eval '
-    echo -n "$1" # array name
-    echo -n '=( '
-    echo -n "$2" # item to append
-    echo -n ' )'
+  echo -n 'eval '
+  echo -n "$1" # array name
+  echo -n '=( '
+  echo -n "$2" # item to append
+  echo -n ' )'
 }
 
 ## @fn __array_len()
@@ -985,11 +986,11 @@ __array_append_first() {
 ## @param variable Variable name.
 ## @param array Array name.
 __array_len() {
-    echo -n 'eval local '
-    echo -n "$1" # variable name
-    echo -n '=${#'
-    echo -n "$2" # array name
-    echo -n '[@]}'
+  echo -n 'eval local '
+  echo -n "$1" # variable name
+  echo -n '=${#'
+  echo -n "$2" # array name
+  echo -n '[@]}'
 }
 
 ## @fn array_append()
@@ -998,19 +999,19 @@ __array_len() {
 ## @details If the array does not exist, this function will create it.
 ## @param array Array to operate on.
 array_append() {
-    local array=$1; shift 1
+  local array=$1; shift 1
 
-    $(__array_len len $array)
+  $(__array_len len $array)
 
-    if (( len == 0 )); then
-        $(__array_append_first $array "$1" )
-        shift 1
-    fi
+  if (( len == 0 )); then
+    $(__array_append_first $array "$1" )
+    shift 1
+  fi
 
-    local i
-    for i in "$@"; do
-        $(__array_append $array "$i")
-    done
+  local i
+  for i in "$@"; do
+    $(__array_append $array "$i")
+  done
 }
 
 ## @fn array_size()
@@ -1019,8 +1020,8 @@ array_append() {
 ## @param array Array to operate on.
 ## @return Size of the array given as parameter.
 array_size() {
-    $(__array_len size $1)
-    echo "$size"
+  $(__array_len size $1)
+  echo "$size"
 }
 
 ## @fn array_print()
@@ -1029,7 +1030,7 @@ array_size() {
 ## @param array Array to operate on.
 ## @return Content of the array given as parameter.
 array_print() {
-    eval "printf '%s\n' \"\${$1[@]}\""
+  eval "printf '%s\n' \"\${$1[@]}\""
 }
 
 # Group: String
@@ -1044,11 +1045,11 @@ array_print() {
 ## @return The new string after having replaced the matched
 ## content with the new one.
 str_replace() {
-    local ORIG="$1"
-    local DEST="$2"
-    local DATA="$3"
+  local ORIG="$1"
+  local DEST="$2"
+  local DATA="$3"
 
-    echo "$DATA" | sed "s/$ORIG/$DEST/g"
+  echo "$DATA" | sed "s/$ORIG/$DEST/g"
 }
 
 ## @fn str_replace_in_file()
@@ -1060,19 +1061,19 @@ str_replace() {
 ## @retval 0 if the original content has been replaced.
 ## @retval 1 if an error occurred.
 str_replace_in_file() {
-    [[ $# -lt 3 ]] && return 1
+  [[ $# -lt 3 ]] && return 1
 
-    local ORIG="$1"
-    local DEST="$2"
+  local ORIG="$1"
+  local DEST="$2"
 
-    for FILE in ${@:3:$#}
-    do
-        file_exists "$FILE" || return 1
+  for FILE in ${@:3:$#}
+  do
+    file_exists "$FILE" || return 1
 
-        printf ",s/$ORIG/$DEST/g\nw\nQ" | ed -s "$FILE" > /dev/null 2>&1 || return "$?"
-    done
+    printf ",s/$ORIG/$DEST/g\nw\nQ" | ed -s "$FILE" > /dev/null 2>&1 || return "$?"
+  done
 
-    return 0
+  return 0
 }
 
 # Group: Stack
@@ -1084,14 +1085,14 @@ str_replace_in_file() {
 ## @private
 ## @param item Item to add on the temporary stack.
 __stack_push_tmp() {
-    local TMP="$1"
+  local TMP="$1"
 
-    if has_value $__TMP_STACK
-    then
-        __TMP_STACK="$TMP"
-    else
-        __TMP_STACK="$__TMP_STACK"$'\n'"$TMP"
-    fi
+  if has_value $__TMP_STACK
+  then
+    __TMP_STACK="$TMP"
+  else
+    __TMP_STACK="$__TMP_STACK"$'\n'"$TMP"
+  fi
 }
 
 ## @fn stack_push()
@@ -1099,14 +1100,14 @@ __stack_push_tmp() {
 ## @brief Adds an item on the stack.
 ## @param item Item to add on the stack.
 stack_push() {
-    line="$1"
+  line="$1"
 
-    if has_value $__STACK
-    then
-        __STACK="$line"
-    else
-        __STACK="$line"$'\n'"$__STACK"
-    fi
+  if has_value $__STACK
+  then
+    __STACK="$line"
+  else
+    __STACK="$line"$'\n'"$__STACK"
+  fi
 }
 
 ## @fn stack_pop()
@@ -1116,27 +1117,27 @@ stack_push() {
 ## @retval 0 if succeed.
 ## @retval 1 in others cases.
 stack_pop() {
-    __TMP_STACK=""
-    i=0
-    tmp=""
-    for x in $__STACK
-    do
-        if [ "$i" == "0" ]
-        then
-            tmp="$x"
-        else
-            __stack_push_tmp "$x"
-        fi
-        ((i++))
-    done
-    __STACK="$__TMP_STACK"
-    REGISTER="$tmp"
-    if [ -z "$REGISTER" ]
+  __TMP_STACK=""
+  i=0
+  tmp=""
+  for x in $__STACK
+  do
+    if [ "$i" == "0" ]
     then
-        return 1
+      tmp="$x"
     else
-        return 0
+      __stack_push_tmp "$x"
     fi
+    ((i++))
+  done
+  __STACK="$__TMP_STACK"
+  REGISTER="$tmp"
+  if [ -z "$REGISTER" ]
+  then
+    return 1
+  else
+    return 0
+  fi
 }
 
 # Group: Network
@@ -1149,10 +1150,10 @@ stack_pop() {
 ## @retval 0 if the address is an IPv4.
 ## @retval 1 in others cases.
 is_ipv4() {
-    local -r regex='^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+  local -r regex='^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
 
-    [[ $1 =~ $regex ]]
-    return $?
+  [[ $1 =~ $regex ]]
+  return $?
 }
 
 ## @fn is_fqdn()
@@ -1162,9 +1163,9 @@ is_ipv4() {
 ## @retval 0 if the FQDN is valid.
 ## @retval 1 in others cases.
 is_fqdn() {
-    echo $1 | grep -Pq '(?=^.{4,255}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}\.?$)'
+  echo $1 | grep -Pq '(?=^.{4,255}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}\.?$)'
 
-    return $?
+  return $?
 }
 
 ## @fn is_ipv4_netmask()
@@ -1174,31 +1175,31 @@ is_fqdn() {
 ## @retval 0 if the IPv4 decimal netmask is valid.
 ## @retval 1 in others cases.
 is_ipv4_netmask() {
-    is_ipv4 $1 || return 1
+  is_ipv4 $1 || return 1
 
-    IFS='.' read -r ipb[1] ipb[2] ipb[3] ipb[4] <<< "$1"
+  IFS='.' read -r ipb[1] ipb[2] ipb[3] ipb[4] <<< "$1"
 
-    local -r list_msb='0 128 192 224 240 248 252 254'
+  local -r list_msb='0 128 192 224 240 248 252 254'
 
-    for i in {1,2,3,4}
-    do
-        if [[ $rest_to_zero ]]
-        then
-            [[ ${ipb[i]} -eq 0 ]] || return 1
-        else
-            if [[ $list_msb =~ (^|[[:space:]])${ipb[i]}($|[[:space:]]) ]]
-            then
-                local -r rest_to_zero=1
-            elif [[ ${ipb[i]} -eq 255 ]]
-            then
-                continue
-            else
-                return 1
-            fi
-        fi
-    done
+  for i in {1,2,3,4}
+  do
+    if [[ $rest_to_zero ]]
+    then
+      [[ ${ipb[i]} -eq 0 ]] || return 1
+    else
+      if [[ $list_msb =~ (^|[[:space:]])${ipb[i]}($|[[:space:]]) ]]
+      then
+        local -r rest_to_zero=1
+      elif [[ ${ipb[i]} -eq 255 ]]
+      then
+        continue
+      else
+        return 1
+      fi
+    fi
+  done
 
-    return 0
+  return 0
 }
 
 ## @fn is_ipv4_cidr()
@@ -1208,12 +1209,12 @@ is_ipv4_netmask() {
 ## @retval 0 if the IPv4 CIDR netmask is valid.
 ## @retval 1 in others cases.
 is_ipv4_cidr() {
-    local -r regex='^[[:digit:]]{1,2}$'
+  local -r regex='^[[:digit:]]{1,2}$'
 
-    [[ $1 =~ $regex ]] || return 1
-    [ "$1" -gt 32 ] || [ "$1" -lt 0 ] && return 1
+  [[ $1 =~ $regex ]] || return 1
+  [ "$1" -gt 32 ] || [ "$1" -lt 0 ] && return 1
 
-    return 0
+  return 0
 }
 
 ## @fn is_ipv4_subnet()
@@ -1223,12 +1224,12 @@ is_ipv4_cidr() {
 ## @retval 0 if the IPv4 subnet is valid.
 ## @retval 1 in others cases.
 is_ipv4_subnet() {
-    IFS='/' read -r tip tmask <<< "$1"
+  IFS='/' read -r tip tmask <<< "$1"
 
-    is_ipv4_cidr $tmask || return 1
-    is_ipv4 $tip || return 1
+  is_ipv4_cidr $tmask || return 1
+  is_ipv4 $tip || return 1
 
-    return 0
+  return 0
 }
 
 ## @fn get_ipv4_network()
@@ -1240,13 +1241,13 @@ is_ipv4_subnet() {
 ## @retval 1 in others cases.
 ## @return Network address.
 get_ipv4_network() {
-    is_ipv4 $1 || return 1
-    is_ipv4_netmask $2 || return 1
+  is_ipv4 $1 || return 1
+  is_ipv4_netmask $2 || return 1
 
-    IFS='.' read -r ipb1 ipb2 ipb3 ipb4 <<< "$1"
-    IFS='.' read -r mb1 mb2 mb3 mb4 <<< "$2"
+  IFS='.' read -r ipb1 ipb2 ipb3 ipb4 <<< "$1"
+  IFS='.' read -r mb1 mb2 mb3 mb4 <<< "$2"
 
-    echo "$((ipb1 & mb1)).$((ipb2 & mb2)).$((ipb3 & mb3)).$((ipb4 & mb4))"
+  echo "$((ipb1 & mb1)).$((ipb2 & mb2)).$((ipb3 & mb3)).$((ipb4 & mb4))"
 }
 
 ## @fn get_ipv4_broadcast()
@@ -1258,18 +1259,18 @@ get_ipv4_network() {
 ## @retval 1 in others cases.
 ## @return Broadcast address.
 get_ipv4_broadcast() {
-    is_ipv4 $1 || return 1
-    is_ipv4_netmask $2 || return 1
+  is_ipv4 $1 || return 1
+  is_ipv4_netmask $2 || return 1
 
-    IFS='.' read -r ipb1 ipb2 ipb3 ipb4 <<< "$1"
-    IFS='.' read -r mb1 mb2 mb3 mb4 <<< "$2"
+  IFS='.' read -r ipb1 ipb2 ipb3 ipb4 <<< "$1"
+  IFS='.' read -r mb1 mb2 mb3 mb4 <<< "$2"
 
-    nmb1=$((mb1 ^ 255))
-    nmb2=$((mb2 ^ 255))
-    nmb3=$((mb3 ^ 255))
-    nmb4=$((mb4 ^ 255))
+  nmb1=$((mb1 ^ 255))
+  nmb2=$((mb2 ^ 255))
+  nmb3=$((mb3 ^ 255))
+  nmb4=$((mb4 ^ 255))
 
-    echo "$((ipb1 | nmb1)).$((ipb2 | nmb2)).$((ipb3 | nmb3)).$((ipb4 | nmb4))"
+  echo "$((ipb1 | nmb1)).$((ipb2 | nmb2)).$((ipb3 | nmb3)).$((ipb4 | nmb4))"
 }
 
 ## @fn mask2cidr()
@@ -1280,12 +1281,12 @@ get_ipv4_broadcast() {
 ## @retval 1 in others cases.
 ## @return CIDR notation of the given decimal netmask.
 mask2cidr() {
-    is_ipv4_netmask $1 || return 1
+  is_ipv4_netmask $1 || return 1
 
-    local x=${1##*255.}
-    set -- 0^^^128^192^224^240^248^252^254^ $(( (${#1} - ${#x})*2 )) ${x%%.*}
-    x=${1%%$3*}
-    echo $(( $2 + (${#x}/4) ))
+  local x=${1##*255.}
+  set -- 0^^^128^192^224^240^248^252^254^ $(( (${#1} - ${#x})*2 )) ${x%%.*}
+  x=${1%%$3*}
+  echo $(( $2 + (${#x}/4) ))
 }
 
 ## @fn cidr2mask()
@@ -1296,28 +1297,28 @@ mask2cidr() {
 ## @retval 1 in others cases.
 ## @return Decimal notation of the given CIDR.
 cidr2mask() {
-    is_ipv4_cidr $1 || return 1
+  is_ipv4_cidr $1 || return 1
 
-    local i mask=""
-    local full_octets=$(($1/8))
-    local partial_octet=$(($1%8))
+  local i mask=""
+  local full_octets=$(($1/8))
+  local partial_octet=$(($1%8))
 
-    for ((i=0;i<4;i+=1))
-    do
-        if [ $i -lt $full_octets ]
-        then
-            mask+=255
-        elif [ $i -eq $full_octets ]
-        then
-            mask+=$((256 - 2**(8-$partial_octet)))
-        else
-            mask+=0
-        fi
+  for ((i=0;i<4;i+=1))
+  do
+    if [ $i -lt $full_octets ]
+    then
+      mask+=255
+    elif [ $i -eq $full_octets ]
+    then
+      mask+=$((256 - 2**(8-$partial_octet)))
+    else
+      mask+=0
+    fi
 
-        test $i -lt 3 && mask+=.
-    done
+    test $i -lt 3 && mask+=.
+  done
 
-    echo $mask
+  echo $mask
 }
 
 # Group: User & Group
@@ -1329,7 +1330,7 @@ cidr2mask() {
 ## @retval 0 if the script is executed by the root user
 ## @retval 1 in others cases.
 is_root() {
-    [ $EUID -eq 0 ] && return 0 || return 1
+  [ $EUID -eq 0 ] && return 0 || return 1
 }
 
 ## @fn is_user_exists()
@@ -1339,8 +1340,8 @@ is_root() {
 ## @retval 0 if the USER exists
 ## @retval 1 in others cases.
 is_user_exists() {
-    getent passwd $1 > /dev/null 2&>1
-    [ $? -eq 0 ] && return 0 || return 1
+  getent passwd $1 > /dev/null 2&>1
+  [ $? -eq 0 ] && return 0 || return 1
 }
 
 # Group: Read from stdin
@@ -1359,57 +1360,57 @@ is_user_exists() {
 ## @retval 0 if the confirmation is <yes>
 ## @retval 1 in others cases.
 confirm() {
-    local yesno
-    declare -l yesno
-    local stryn
-    local emptyReturn
-    local allowempty
+  local yesno
+  declare -l yesno
+  local stryn
+  local emptyReturn
+  local allowempty
 
 
-    case "$1" in
-        [yY])
-            stryn='Y/n'
-            allowempty=true
-            emptyReturn=0
+  case "$1" in
+    [yY])
+      stryn='Y/n'
+      allowempty=true
+      emptyReturn=0
 
-            ;;
+      ;;
 
-        [nN])
-            stryn='y/N'
-            allowempty=true
-            emptyReturn=1
-            ;;
+    [nN])
+      stryn='y/N'
+      allowempty=true
+      emptyReturn=1
+      ;;
 
-        *)
-            stryn='y/n'
-            allowempty=false
-            ;;
+    *)
+      stryn='y/n'
+      allowempty=false
+      ;;
+  esac
+
+  while [ "$yesno" != "y" -a "$yesno" != "n" ] ; do
+    echo -n "[${stryn}] "
+
+    read -r -p "" yesno
+
+    [ "$yesno" == "" ] && $allowempty && return $emptyReturn
+
+    case "${yesno}" in
+      [yY])
+        true # Keep it for tabs test suite !
+        return 0
+        ;;
+
+      [nN])
+        false # Keep it for tabs test suite !
+        return 1
+        ;;
+
+      *)
+        false # Keep it for tabs test suite !
+        msg_warning " => Please answer with n or y."
+        ;;
     esac
-
-    while [ "$yesno" != "y" -a "$yesno" != "n" ] ; do
-        echo -n "[${stryn}] "
-
-        read -r -p "" yesno
-
-        [ "$yesno" == "" ] && $allowempty && return $emptyReturn
-
-        case "${yesno}" in
-            [yY])
-                true # Keep it for tabs test suite !
-                return 0
-                ;;
-
-            [nN])
-                false # Keep it for tabs test suite !
-                return 1
-                ;;
-
-            *)
-                false # Keep it for tabs test suite !
-                msg_warning " => Please answer with n or y."
-                ;;
-        esac
-    done
+  done
 }
 
 ## @fn read_path()
@@ -1418,7 +1419,7 @@ confirm() {
 ## @param string Default value for the path.
 ## @param string The variable to set with the asked path.
 read_path() {
-    read -e -p "" -i "$1" $2
+  read -e -p "" -i "$1" $2
 }
 
 ## @fn read_key()
@@ -1426,8 +1427,8 @@ read_path() {
 ## @brief Read from stdin for any key pressed.
 ## @param string (optional) The message to display.
 read_key() {
-    local MSG=${1:-"Press any key to continue…"}
-    read -n 1 -s -r -p "$MSG"
+  local MSG=${1:-"Press any key to continue…"}
+  read -n 1 -s -r -p "$MSG"
 }
 
 ## @fn read_password()
@@ -1436,15 +1437,15 @@ read_key() {
 ## @param string (optional) The message to display.
 ## @param string The variable to set with the asked path.
 read_password() {
-    local PASS_CONFIRM='«↓ð€ŀ¬z>(" X=1.Ge/b]ZlS(:!F#r}x	'
-    local MSG=${1:-"Enter the password :"}
+  local PASS_CONFIRM='«↓ð€ŀ¬z>(" X=1.Ge/b]ZlS(:!F#r}x	'
+  local MSG=${1:-"Enter the password :"}
 
-    while [ "${!2}" != "$PASS_CONFIRM" ]
-    do
-        read -s -p "$MSG" $2
-        echo
-        read -s -p "Please, confirm the password : " PASS_CONFIRM
-        echo
-        [ "${!2}" != "$PASS_CONFIRM" ] && msg_warning 'The two given passwords mismatch.'
-    done
+  while [ "${!2}" != "$PASS_CONFIRM" ]
+  do
+    read -s -p "$MSG" $2
+    echo
+    read -s -p "Please, confirm the password : " PASS_CONFIRM
+    echo
+    [ "${!2}" != "$PASS_CONFIRM" ] && msg_warning 'The two given passwords mismatch.'
+  done
 }
