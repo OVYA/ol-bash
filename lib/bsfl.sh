@@ -1087,11 +1087,11 @@ str_replace_in_file() {
 __stack_push_tmp() {
   local TMP="$1"
 
-  if has_value $__TMP_STACK
+  if has_value __TMP_STACK
   then
-    __TMP_STACK="$TMP"
-  else
     __TMP_STACK="$__TMP_STACK"$'\n'"$TMP"
+  else
+    __TMP_STACK="$TMP"
   fi
 }
 
@@ -1100,13 +1100,13 @@ __stack_push_tmp() {
 ## @brief Adds an item on the stack.
 ## @param item Item to add on the stack.
 stack_push() {
-  line="$1"
+  local line="$1"
 
-  if has_value $__STACK
+  if has_value __STACK
   then
-    __STACK="$line"
-  else
     __STACK="$line"$'\n'"$__STACK"
+  else
+    __STACK="$line"
   fi
 }
 
@@ -1120,7 +1120,7 @@ stack_pop() {
   __TMP_STACK=""
   i=0
   tmp=""
-  for x in $__STACK
+  while IFS= read -r x || [[ -n $x ]]
   do
     if [ "$i" == "0" ]
     then
@@ -1129,9 +1129,11 @@ stack_pop() {
       __stack_push_tmp "$x"
     fi
     ((i++))
-  done
+  done < <(printf '%s'  "$__STACK")
+
   __STACK="$__TMP_STACK"
   REGISTER="$tmp"
+
   if [ -z "$REGISTER" ]
   then
     return 1
